@@ -5,7 +5,7 @@ import (
 	"bufio"
 	"fmt"
 	"log"
-	"CCP/Packets"
+	"Connected-Cars/CCP/Packets"
 )
 
 type Client struct {
@@ -30,9 +30,9 @@ func (client Client) Receive_decoded_payload(header []byte) (Packets.Payload,err
 	//Get header
 	n, err := client.Socket.Read(header)
 	if err != nil || n != HEADER_SIZE {
-		log.Print("Header's length received doesn't match HEADER_SIZE: ", ok)
+		log.Print("Header's length received doesn't match HEADER_SIZE: ", err)
 		client.close_connection()
-		return nil,ok
+		return nil,err
 	}
 
 	//Parse the header

@@ -1,9 +1,9 @@
 package main
 
 import (
-	"CCP/Network"
-	"CCP/Packets"
-	"CCP/Packets/Payloads"
+	"Connected-Cars/CCP/Network"
+	"Connected-Cars/CCP/Packets"
+	"Connected-Cars/CCP/Packets/Payloads"
 	"fmt"
 	"log"
 	"os"
@@ -12,6 +12,7 @@ import (
 
 // Car Communication Protocol
 func main() {
+	fmt.Print("eee")
 
 	// Server
 	if len(os.Args) > 1 {

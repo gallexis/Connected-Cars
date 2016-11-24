@@ -1,7 +1,7 @@
 package Packets
 
 import (
-	"CCP/Packets/Payloads"
+	"Connected-Cars/CCP/Packets/Payloads"
 	"bytes"
 )
 

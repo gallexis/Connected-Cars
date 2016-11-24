@@ -1,8 +1,8 @@
 package Network
 
 import (
-	"CCP/Packets"
-	"CCP/Packets/Payloads"
+	"Connected-Cars/CCP/Packets"
+	"Connected-Cars/CCP/Packets/Payloads"
 	"fmt"
 	"log"
 	"net"
