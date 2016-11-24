@@ -26,21 +26,21 @@ def setup():
 		for line in open('config'):
 			if line[0:8] == 'offset_x':
 				offset_x = int(line[11:-1])
-				print ('offset_x ='), offset_x
+				print(('offset_x ='), offset_x)
 			if line[0:8] == 'offset_y':
 				offset_y = int(line[11:-1])
-				print ('offset_y ='), offset_y
+				print(('offset_y ='), offset_y)
 			if line[0:8] == 'offset =':
 				offset = int(line[9:-1])
-				print 'offset =', offset
+				print('offset =', offset)
 			if line[0:8] == "forward0":
 				forward0 = line[11:-1]
-				print 'turning0 =', forward0
+				print('turning0 =', forward0)
 			if line[0:8] == "forward1":
 				forward1 = line[11:-1]
-				print 'turning1 =', forward1
+				print('turning1 =', forward1)
 	except:
-		print 'no config file, set config to original'
+		print('no config file, set config to original')
 	video_dir.setup()
 	car_dir.setup()
 	motor.setup()
@@ -56,12 +56,12 @@ def REVERSE(x):
 def loop():
 	global offset_x, offset_y, offset, forward0, forward1
 	while True:
-		print 'Waiting for connection...'
+		print('Waiting for connection...')
 		# Waiting for connection. Once receiving a connection, the function accept() returns a separate
 		# client socket for the subsequent communication. By default, the function accept() is a blocking
 		# one, which means it is suspended before the connection comes.
 		tcpCliSock, addr = tcpSerSock.accept()
-		print '...connected from :', addr     # Print the IP address of the client connected with the server.
+		print('...connected from :', addr)     # Print the IP address of the client connected with the server.
 
 		while True:
 			data = tcpCliSock.recv(BUFSIZ)    # Receive data sent from the client.
@@ -70,7 +70,7 @@ def loop():
 				break
 			#--------Motor calibration----------
 			if data == 'motor_run':
-				print 'motor moving forward'
+				print('motor moving forward')
 				motor.setSpeed(50)
 				motor.motor0(forward0)
 				motor.motor1(forward1)
@@ -87,17 +87,17 @@ def loop():
 					forward0 = "False"
 				else:
 					forward0 = "True"
-				print "left motor reversed to", forward0
+				print("left motor reversed to", forward0)
 				motor.motor0(forward0)
 			elif data == 'rightreverse':
 				if forward1 == "True":
 					forward1 = "False"
 				else:
 					forward1 = "True"
-				print "right motor reversed to", forward1
+				print("right motor reversed to", forward1)
 				motor.motor1(forward1)
 			elif data == 'motor_stop':
-				print 'motor stop'
+				print('motor stop')
 				motor.stop()
 			#---------------------------------
 
@@ -110,54 +110,54 @@ def loop():
 			#----------Mount calibration---------
 			elif data[0:8] == 'offsetx=':
 				offset_x = int(data[8:])
-				print 'Mount offset x', offset_x
+				print('Mount offset x', offset_x)
 				video_dir.calibrate(offset_x, offset_y)
 			elif data[0:8] == 'offsety=':
 				offset_y = int(data[8:])
-				print 'Mount offset y', offset_y
+				print('Mount offset y', offset_y)
 				video_dir.calibrate(offset_x, offset_y)
 			#----------------------------------------
 
 			#-------Turing calibration 2------
 			elif data[0:7] == 'offset+':
 				offset = offset + int(data[7:])
-				print 'Turning offset', offset
+				print('Turning offset', offset)
 				car_dir.calibrate(offset)
 			elif data[0:7] == 'offset-':
 				offset = offset - int(data[7:])
-				print 'Turning offset', offset
+				print('Turning offset', offset)
 				car_dir.calibrate(offset)
 			#--------------------------------
 
 			#----------Mount calibration 2---------
 			elif data[0:8] == 'offsetx+':
 				offset_x = offset_x + int(data[8:])
-				print 'Mount offset x', offset_x
+				print('Mount offset x', offset_x)
 				video_dir.calibrate(offset_x, offset_y)
 			elif data[0:8] == 'offsetx-':
 				offset_x = offset_x - int(data[8:])
-				print 'Mount offset x', offset_x
+				print('Mount offset x', offset_x)
 				video_dir.calibrate(offset_x, offset_y)
 			elif data[0:8] == 'offsety+':
 				offset_y = offset_y + int(data[8:])
-				print 'Mount offset y', offset_y
+				print('Mount offset y', offset_y)
 				video_dir.calibrate(offset_x, offset_y)
 			elif data[0:8] == 'offsety-':
 				offset_y = offset_y - int(data[8:])
-				print 'Mount offset y', offset_y
+				print('Mount offset y', offset_y)
 				video_dir.calibrate(offset_x, offset_y)
 			#----------------------------------------
 
 			#----------Confirm--------------------
 			elif data == 'confirm':
 				config = 'offset_x = %s\noffset_y = %s\noffset = %s\nforward0 = %s\nforward1 = %s\n ' % (offset_x, offset_y, offset, forward0, forward1)
-				print ''
-				print '*********************************'
-				print ' You are setting config file to:'
-				print '*********************************'
-				print config
-				print '*********************************'
-				print ''
+				print('')
+				print('*********************************')
+				print(' You are setting config file to:')
+				print('*********************************')
+				print(config)
+				print('*********************************')
+				print('')
 				fd = open('config', 'w')
 				fd.write(config)
 				fd.close()
@@ -166,11 +166,11 @@ def loop():
 				tcpCliSock.close()
 				quit()
 			else:
-				print 'Command Error! Cannot recognize command: ' + data
+				print('Command Error! Cannot recognize command: ' + data)
 
 if __name__ == "__main__":
 	try:
 		setup()
 		loop()
 	except KeyboardInterrupt:
-tcpSerSock.close()
+		tcpSerSock.close()
