@@ -154,4 +154,4 @@ class PWM(object):
 
 
 
-print((self._DEBUG_INFO, "Set debug off"))
+        print((self._DEBUG_INFO, "Set debug off"))
