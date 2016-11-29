@@ -1,12 +1,7 @@
-# CCP
-Car communication Protocol in Golang
+# Connected Cars
 
+School project of assembling 2 cars with a Raspberry in each of them, controlled by a computer.
 
-###Cross compile to raspberry 1 (& 2?): 
-env GOOS=linux GOARCH=arm GOARM=6 go build -v
-
-###Cross compile to raspberry 3:
-env GOOS=linux GOARCH=arm64 GOARM=7 go build -v
 
 
 ## SCP from PC to raspberry without password

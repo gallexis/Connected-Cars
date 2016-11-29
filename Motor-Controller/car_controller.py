@@ -3,21 +3,12 @@ import RPi.GPIO as GPIO
 import video_dir
 import car_dir
 import motor
+import os
 from socket import *
 from time import ctime  # Import necessary modules
 
 ctrl_cmd = ['forward', 'backward', 'left', 'right', 'stop', 'read cpu_temp', 'home', 'distance', 'x+', 'x-', 'y+', 'y-',
             'xy_home']
-
-HOST = ''  # The variable of HOST is null, so the function bind( ) can be bound to all valid addresses.
-PORT = 21567
-BUFSIZ = 1024  # Size of the buffer
-ADDR = (HOST, PORT)
-
-tcpSerSock = socket(AF_INET, SOCK_STREAM)  # Create a socket.
-tcpSerSock.bind(ADDR)  # Bind the IP address and port number of the server.
-tcpSerSock.listen(5)  # The parameter of listen() defines the number of connections permitted at one time. Once the
-# connections are full, others will be rejected.
 
 video_dir.setup()
 car_dir.setup()
@@ -25,20 +16,12 @@ motor.setup()  # Initialize the Raspberry Pi GPIO connected to the DC motor.
 video_dir.home_x_y()
 car_dir.home()
 
-while True:
-    print('Waiting for connection...')
-    # Waiting for connection. Once receiving a connection, the function accept() returns a separate
-    # client socket for the subsequent communication. By default, the function accept() is a blocking
-    # one, which means it is suspended before the connection comes.
-    tcpCliSock, addr = tcpSerSock.accept()
-    print(('...connected from :', addr))  # Print the IP address of the client connected with the server.
 
+def move_car(receving_queue,sending_queue):
     while True:
-        data = ''
-        data = tcpCliSock.recv(BUFSIZ)  # Receive data sent from the client.
-        # Analyze the command received and control the car accordingly.
-        if not data:
-            break
+        data = receving_queue.get()
+        #log data
+
         if data == ctrl_cmd[0]:
             print('motor moving forward')
             motor.forward()
@@ -60,7 +43,7 @@ while True:
         elif data == ctrl_cmd[5]:
             print('read cpu temp...')
             temp = cpu_temp.read()
-            tcpCliSock.send('[%s] %0.2f' % (ctime(), temp))
+            sending_queue.put('[%s] %0.2f' % (ctime(), temp))
         elif data == ctrl_cmd[8]:
             print('recv x+ cmd')
             video_dir.move_increase_x()
@@ -103,16 +86,15 @@ while True:
                 motor.forward(spd)
             except:
                 print(('Error speed =', spd))
-                elif data[0:9] == 'backward=':
-                print(('data =', data))
-                spd = data.split('=')[1]
-        try:
-            spd = int(spd)
-            motor.backward(spd)
-    except:
-        print(('ERROR, speed =', spd))
+        elif data[0:9] == 'backward=':
+            print(('data =', data))
+            spd = data.split('=')[1]
+            try:
+                spd = int(spd)
+                motor.backward(spd)
+            except:
+                print(('ERROR, speed =', spd))
 
-    else:
-        print(('Command Error! Cannot recognize command: ' + data))
-
-tcpSerSock.close()
+        else:
+            print(('Command Error! Cannot recognize command: ' + data))
+            break
