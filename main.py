@@ -1,9 +1,5 @@
 import queue
 import sys
-import gevent
-
-import CCP
-
 
 def main():
     # computer
@@ -15,6 +11,9 @@ def main():
         q = queue.Queue()
 
 
+
+
+
     #car
     else:
         from Motor_controller import car_controller
@@ -22,7 +21,7 @@ def main():
         receving_queue = queue.Queue()
         sending_queue = queue.Queue()
 
-        gevent.spawn(car_controller.move_car, receving_queue, sending_queue)
+        car_controller.move_car(receving_queue, sending_queue)
 
 
 

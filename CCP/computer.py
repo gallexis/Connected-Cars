@@ -4,8 +4,7 @@ import gevent
 # sock - address
 cars = []
 number_of_cars = 0
-
-
+queue = None
 
 def handle_car(car_sock, address):
     global number_of_cars,cars
@@ -24,7 +23,7 @@ def handle_car(car_sock, address):
         print(response)
 
 
-def server():
+def server(sendingQueue):
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     s.bind(('', 15555))
     s.listen(5)
