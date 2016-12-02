@@ -7,8 +7,10 @@ import os
 from socket import *
 from time import ctime  # Import necessary modules
 
-ctrl_cmd = ['forward', 'backward', 'left', 'right', 'stop', 'read cpu_temp', 'home', 'distance', 'x+', 'x-', 'y+', 'y-',
-            'xy_home']
+ctrl_cmd = {'0: (motor.forward,arg)', 'backward', 'left', 'right', 'stop', 'read cpu_temp', 'home', 'distance', 'x+', 'x-', 'y+', 'y-',
+            'xy_home'}
+
+
 
 video_dir.setup()
 car_dir.setup()
@@ -17,7 +19,7 @@ video_dir.home_x_y()
 car_dir.home()
 
 
-def move_car(receving_queue,sending_queue):
+def move_car(receving_queue):
     while True:
         data = receving_queue.get()
         #log data
@@ -42,8 +44,8 @@ def move_car(receving_queue,sending_queue):
             motor.ctrl(0)
         elif data == ctrl_cmd[5]:
             print('read cpu temp...')
-            temp = cpu_temp.read()
-            sending_queue.put('[%s] %0.2f' % (ctime(), temp))
+            #temp = cpu_temp.read()
+            #sending_queue.put('[%s] %0.2f' % (ctime(), 0.0))
         elif data == ctrl_cmd[8]:
             print('recv x+ cmd')
             video_dir.move_increase_x()
@@ -83,7 +85,7 @@ def move_car(receving_queue,sending_queue):
             spd = data[8:]
             try:
                 spd = int(spd)
-                motor.forward(spd)
+                motor.forwardWithSpeed(spd)
             except:
                 print(('Error speed =', spd))
         elif data[0:9] == 'backward=':
@@ -91,7 +93,7 @@ def move_car(receving_queue,sending_queue):
             spd = data.split('=')[1]
             try:
                 spd = int(spd)
-                motor.backward(spd)
+                motor.backwardWithSpeed(spd)
             except:
                 print(('ERROR, speed =', spd))
 
