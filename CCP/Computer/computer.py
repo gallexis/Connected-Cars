@@ -1,11 +1,6 @@
 import socket
 import gevent
 
-# sock - address
-cars = []
-number_of_cars = 0
-queue = None
-
 def handle_car(car_sock, address):
     global number_of_cars,cars
 
@@ -17,8 +12,7 @@ def handle_car(car_sock, address):
             break
 
         if b"init" == response:
-            cars[number_of_cars] = (car_sock,address)
-            number_of_cars+=1
+            print("new car")
 
         print(response)
 
