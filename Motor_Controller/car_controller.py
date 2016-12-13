@@ -14,6 +14,7 @@ ctrl_cmd = {'0': lambda x:   motor.forward(*arg),
 ctrl_cmd = {
     '0': motor.forward(),
     '1': motor.backward(),
+    '2':
 
 
     '15': lambda args: motor.forwardWithSpeed(args)

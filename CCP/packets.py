@@ -1,21 +1,38 @@
-categories:
-"driving":0
-"alert":1
+try:
+    import cPickle as pickle
+except:
+    import pickle
 
-order:
-init_connection:0
-forward:0
-stop:0
-left:1
-warning:1
+message_type={
+    "alert": 0,
+    "driving": 1,
+    "connection": 2
+}
 
-args:
-ex: [speed:5, angle:56]
+message_order={
+    "connection_init":0,
+
+    "move_forward":0,
+    "move_left":1,
+
+    "alert_stop":0,
+    "alert_warning":1
+
+}
 
 
-call("driving","forward",5)
+def get_message(message):
+    return pickle.loads(message)
 
-def get_move_forward(cat="driving", ):
-    return {"categorie":"driving","order":'0',"args":[]}
+def create_message(**kargs):
+    type =   kargs["message_type"]
+    order=   kargs["message_order"]
+    args=    kargs["args"]
 
-
+    return pickle.dumps(
+            {
+            "message_type": message_type[type],
+            "message_order": message_order[order],
+            "args": args
+             }
+    )
