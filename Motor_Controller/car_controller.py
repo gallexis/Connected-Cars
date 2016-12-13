@@ -7,10 +7,26 @@ import os
 from socket import *
 from time import ctime  # Import necessary modules
 
-ctrl_cmd = {'0: (motor.forward,arg)', 'backward', 'left', 'right', 'stop', 'read cpu_temp', 'home', 'distance', 'x+', 'x-', 'y+', 'y-',
+ctrl_cmd = {'0': lambda x:   motor.forward(*arg),
+            'backward', 'left', 'right', 'stop', 'read cpu_temp', 'home', 'distance', 'x+', 'x-', 'y+', 'y-',
             'xy_home'}
 
+ctrl_cmd = {
+    '0': motor.forward(),
+    '1': motor.backward(),
 
+
+    '15': lambda args: motor.forwardWithSpeed(args)
+
+}
+
+
+data = recv()
+{order:'2', arg:'toto'}
+
+ if 0 < data 20
+
+    ctrl_cmd[data](arg)
 
 video_dir.setup()
 car_dir.setup()
