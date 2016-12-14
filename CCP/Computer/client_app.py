@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from Tkinter import *
+from tkinter import *
 from socket import *      # Import necessary modules
 
 
@@ -43,47 +43,47 @@ ctrl_cmd = {
 """
 
 def forward_fun(event):
-	print 'forward'
+	print('forward')
 	tcpCliSock.send('1')
 
 def backward_fun(event):
-	print 'backward'
+	print('backward')
 	tcpCliSock.send('2')
 
 def left_fun(event):
-	print 'left'
+	print('left')
 	tcpCliSock.send('3')
 
 def right_fun(event):
-	print 'right'
+	print('right')
 	tcpCliSock.send('4')
 
 def stop_fun(event):
-	print 'stop'
+	print('stop')
 	tcpCliSock.send('0')
 
 def home_fun(event):
-	print 'home'
+	print('home')
 	tcpCliSock.send('14')
 
 def x_increase(event):
-	print 'x+'
+	print('x+')
 	tcpCliSock.send('8')
 
 def x_decrease(event):
-	print 'x-'
+	print('x-')
 	tcpCliSock.send('9')
 
 def y_increase(event):
-	print 'y+'
+	print('y+')
 	tcpCliSock.send('10')
 
 def y_decrease(event):
-	print 'y-'
+	print('y-')
 	tcpCliSock.send('11')
 
 def xy_home(event):
-	print 'xy_home'
+	print('xy_home')
 	tcpCliSock.send('12')
 
 
@@ -240,7 +240,7 @@ def changeSpeed(ev=None):
 	global spd
 	spd = speed.get()
 	data = '13 ' + str(spd)  # Change the integers into strings and combine them with the string 'speed'.
-	print 'sendData = %s' % data
+	print('sendData = %s' % data)
 	tcpCliSock.send(data)  # Send the speed data to the server(Raspberry Pi)
 
 label = Label(top, text='Speed:', fg='red')  # Create a label

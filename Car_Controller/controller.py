@@ -12,7 +12,8 @@ class Controller:
         self.queue_motor =  queue_motor
 
         gevent.joinall([
-            gevent.spawn(self.manager_ccp()),
+            gevent.spawn(self.manager_ccp_receive()),
+            gevent.spawn(self.manager_ccp_send()),
             gevent.spawn(self.manager_images())
         ])
 
@@ -26,7 +27,7 @@ class Controller:
             data=self.queue_images.get()
             if interprete_image(data) == obstacle:
                 self.queue_motor.put(stop)
-                self.queue_ccp_send.put(obstacle)
+                self.CCP.send(obstacle)
 
     def manager_ccp_receive(self):
         while True:
@@ -35,7 +36,7 @@ class Controller:
             if data == motor
                 self.queue_motor.put(data)
 
-
+    """
     def manager_ccp_send(self):
         while True:
             data = self.queue_ccp_send.get()
