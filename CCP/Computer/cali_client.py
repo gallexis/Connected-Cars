@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from tkinter import *
+from Tkinter import *
 from socket import *  # Import necessary modules
 import os
 
@@ -37,7 +37,7 @@ def setup():
 # =============================================================================
 def run(event):
     global runbtn
-    print()
+    print
     'motor ', runbtn
     if runbtn == 'Stop':
         tcpCliSock.send('motor_stop')
@@ -69,26 +69,28 @@ def right_reverse(event):
 
 # ---------turing---------------
 def fineturn_left(event):
-    print('fineturn_left')
+    print
+    'fineturn_left'
     cmd = 'offset-1'
     tcpCliSock.send(cmd)
 
 
 def fineturn_right(event):
-    print('fineturn_right')
+    print
+    'fineturn_right'
     cmd = 'offset+1'
     tcpCliSock.send(cmd)
 
 
 def coarseturn_left(event):
-    print()
+    print
     'coarseturn_left'
     cmd = 'offset-10'
     tcpCliSock.send(cmd)
 
 
 def coarseturn_right(event):
-    print()
+    print
     'coarseturn_right'
     cmd = 'offset+10'
     tcpCliSock.send(cmd)
@@ -100,56 +102,56 @@ def coarseturn_right(event):
 # -------------x------------------
 def finex_left(event):
     cmd = 'offsetx+1'
-    print()
+    print
     cmd
     tcpCliSock.send(cmd)
 
 
 def finex_right(event):
     cmd = 'offsetx-1'
-    print()
+    print
     cmd
     tcpCliSock.send(cmd)
 
 
 def coarsex_left(event):
     cmd = 'offsetx+10'
-    print()
+    print
     cmd
     tcpCliSock.send(cmd)
 
 
 def coarsex_right(event):
     cmd = 'offsetx-10'
-    print()
+    print
     cmd
     tcpCliSock.send(cmd)
 
 
 # ---------y-----------------------
 def finey_down(event):
-    print()
+    print
     'finey_down'
     cmd = 'offsety-1'
     tcpCliSock.send(cmd)
 
 
 def finey_up(event):
-    print()
+    print
     'finey_up'
     cmd = 'offsety+1'
     tcpCliSock.send(cmd)
 
 
 def coarsey_down(event):
-    print()
+    print
     'coarsey_down'
     cmd = 'offsety-10'
     tcpCliSock.send(cmd)
 
 
 def coarsey_up(event):
-    print()
+    print
     'coarsey_up'
     cmd = 'offsety+10'
     tcpCliSock.send(cmd)
