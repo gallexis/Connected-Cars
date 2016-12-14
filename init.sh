@@ -1,15 +1,13 @@
-#!/usr/bin/bash
+#!/bin/bash
 
 
-if [ $1 = "pc" ]
+if [ $1 == "pc" ]
 then
     echo "PC"
 
     sudo apt-get install -y \
     git \
     python-tk
-
-    git clone https://github.com/sunfounder/Sunfounder_Smart_Video_Car_Kit_for_RaspberryPi.git
 
 else
     echo "Raspi"
@@ -21,9 +19,6 @@ else
     libv4l-dev \
     libjpeg8-dev \
     imagemagick
-
-    git clone https://github.com/sunfounder/Sunfounder_Smart_Video_Car_Kit_for_RaspberryPi.git
-
 
     sudo echo "#blacklist i2c-bcm2708" >> /etc/modprobe.d/raspi-blacklist.conf
 
@@ -42,13 +37,13 @@ else
     lsmod | grep i2c
 
     #camera
-    cd Sunfounder_Smart_Video_Car_Kit_for_RaspberryPi/mjpg-streamer/mjpg-streamer/
+    cd mjpg-streamer/mjpg-streamer/
     make USE_LIBV4L2=true clean all
     sudo make DESTDIR=/usr install
     sudo sh start.sh
 
     echo "Get the id & password then go to your browser"
-
+    cd ../..
 
 fi
 

@@ -44,4 +44,3 @@ class Controller:
             if data == (image: obstacle):
             self.queue_motor.put(stop)
             self.queue_ccp_send.put(stop)
-    """
