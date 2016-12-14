@@ -2,7 +2,7 @@
 from Tkinter import *
 from socket import *      # Import necessary modules
 
-ctrl_cmd = ['forward', 'backward', 'left', 'right', 'stop', 'read cpu_temp', 'home', 'distance', 'x+', 'x-', 'y+', 'y-', 'xy_home']
+
 
 top = Tk()   # Create a top window
 top.title('Sunfounder Raspberry Pi Smart Video Car')
@@ -19,6 +19,85 @@ tcpCliSock.connect(ADDR)                    # Connect with the server
 # The function is to send the command forward to the server, so as to make the
 # car move forward.
 # =============================================================================
+
+#ctrl_cmd = ['forward', 'backward', 'left', 'right', 'stop', 'read cpu_temp', 'home', 'distance', 'x+', 'x-', 'y+', 'y-', 'xy_home']
+"""
+ctrl_cmd = {
+    '0':  motor.ctrl(0), #Stop
+    '1':  motor.forward(),
+    '2':  motor.backward(),
+    '3':  car_dir.turn_left(),
+    '4':  car_dir.turn_right(),
+    '5':  lambda args: forward_speed(args),
+    '6':  lambda args: backward_speed(args),
+    '7':  lambda args: setAngle(args),
+    '8':  video_dir.move_increase_x(),# X+
+    '9':  video_dir.move_decrease_x(), # X-
+    '10': video_dir.move_increase_y(), # Y+
+    '11': video_dir.move_decrease_y(), # Y-
+    '12': video_dir.home_x_y(),# home X_Y
+    '13': lambda args: setSpeed(args),
+    '14': car_dir.home(),
+    '15': lambda : set_cpu_value()
+}
+"""
+
+def forward_fun(event):
+	print 'forward'
+	tcpCliSock.send('1')
+
+def backward_fun(event):
+	print 'backward'
+	tcpCliSock.send('2')
+
+def left_fun(event):
+	print 'left'
+	tcpCliSock.send('3')
+
+def right_fun(event):
+	print 'right'
+	tcpCliSock.send('4')
+
+def stop_fun(event):
+	print 'stop'
+	tcpCliSock.send('0')
+
+def home_fun(event):
+	print 'home'
+	tcpCliSock.send('14')
+
+def x_increase(event):
+	print 'x+'
+	tcpCliSock.send('8')
+
+def x_decrease(event):
+	print 'x-'
+	tcpCliSock.send('9')
+
+def y_increase(event):
+	print 'y+'
+	tcpCliSock.send('10')
+
+def y_decrease(event):
+	print 'y-'
+	tcpCliSock.send('11')
+
+def xy_home(event):
+	print 'xy_home'
+	tcpCliSock.send('12')
+
+
+# =============================================================================
+# Exit the GUI program and close the network connection between the client
+# and server.
+# =============================================================================
+def quit_fun(event):
+	top.quit()
+	tcpCliSock.send('stop')
+	tcpCliSock.close()
+
+
+"""
 def forward_fun(event):
 	print 'forward'
 	tcpCliSock.send('forward')
@@ -63,6 +142,7 @@ def xy_home(event):
 	print 'xy_home'
 	tcpCliSock.send('xy_home')
 
+
 # =============================================================================
 # Exit the GUI program and close the network connection between the client
 # and server.
@@ -71,6 +151,7 @@ def quit_fun(event):
 	top.quit()
 	tcpCliSock.send('stop')
 	tcpCliSock.close()
+"""
 
 # =============================================================================
 # Create buttons
@@ -158,7 +239,7 @@ def changeSpeed(ev=None):
 	tmp = 'speed'
 	global spd
 	spd = speed.get()
-	data = tmp + str(spd)  # Change the integers into strings and combine them with the string 'speed'.
+	data = '13 ' + str(spd)  # Change the integers into strings and combine them with the string 'speed'.
 	print 'sendData = %s' % data
 	tcpCliSock.send(data)  # Send the speed data to the server(Raspberry Pi)
 

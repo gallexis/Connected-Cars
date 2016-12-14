@@ -16,6 +16,7 @@ class Controller:
             gevent.spawn(self.manager_images())
         ])
 
+    """
     def controller(self):
         pass
 
@@ -42,3 +43,4 @@ class Controller:
             if data == (image: obstacle):
             self.queue_motor.put(stop)
             self.queue_ccp_send.put(stop)
+    """
