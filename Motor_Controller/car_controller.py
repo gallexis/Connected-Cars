@@ -17,8 +17,8 @@ ctrl_cmd = {
     '2': motor.backward(),
     '3': car_dir.turn_left(),
     '4': car_dir.turn_right(),
-    '5': lambda args: motor.forwardWithSpeed(args),
-    '6': lambda args: motor.backwardWithSpeed(args),
+    '5': lambda args: motor.forwardWithSpeed(int(args)),
+    '6': lambda args: motor.backwardWithSpeed(int(args)),
     '7': lambda args: car_dir.turn(int(args))
 }
 
