@@ -7,27 +7,28 @@ import os
 from socket import *
 from time import ctime  # Import necessary modules
 
-ctrl_cmd = {'0': lambda x:   motor.forward(*arg),
-            'backward', 'left', 'right', 'stop', 'read cpu_temp', 'home', 'distance', 'x+', 'x-', 'y+', 'y-',
-            'xy_home'}
+#ctrl_cmd = {'0': lambda x:   motor.forward(*arg),
+#            'backward', 'left', 'right', 'stop', 'read cpu_temp', 'home', 'distance', 'x+', 'x-', 'y+', 'y-',
+#            'xy_home'}
 
 ctrl_cmd = {
-    '0': motor.forward(),
-    '1': motor.backward(),
-    '2':
-
-
-    '15': lambda args: motor.forwardWithSpeed(args)
-
+    '0': motor.ctrl(0), #Stop
+    '1': motor.forward(),
+    '2': motor.backward(),
+    '3': car_dir.turn_left(),
+    '4': car_dir.turn_right(),
+    '5': lambda args: motor.forwardWithSpeed(int(args)),
+    '6': lambda args: motor.backwardWithSpeed(int(args)),
+    '7': lambda args: car_dir.turn(int(args))
 }
 
 
-data = recv()
-{order:'2', arg:'toto'}
+#data = recv()
+#{order:'2', arg:'toto'}
 
- if 0 < data 20
+# if 0 < data 20
 
-    ctrl_cmd[data](arg)
+#    ctrl_cmd[data](arg)
 
 video_dir.setup()
 car_dir.setup()
@@ -37,6 +38,16 @@ car_dir.home()
 
 
 def move_car(receving_queue):
+    while True:
+        data = receving_queue.get()
+        data_split= data.split(' ')
+        if len(data_split>1):
+            ctrl_cmd[data_split[0]](data_split[1])
+        else:
+            ctrl_cmd[data_split[0]]
+
+        #log data
+    """
     while True:
         data = receving_queue.get()
         #log data
@@ -117,3 +128,4 @@ def move_car(receving_queue):
         else:
             print(('Command Error! Cannot recognize command: ' + data))
             break
+"""
