@@ -1,4 +1,29 @@
-== == == == == == == == == == == == == == == == == == == == == == == == == == =
+# -*- coding: utf-8 -*-
+from Tkinter import *
+from socket import *  # Import necessary modules
+import os
+
+top = Tk()  # Create a top window
+top.title('Raspberry Pi Smart Video Car Calibration')
+
+HOST = '192.168.0.159'  # Server(Raspberry Pi) IP address
+PORT = 21567
+BUFSIZ = 1024  # buffer size
+ADDR = (HOST, PORT)
+
+tcpCliSock = socket(AF_INET, SOCK_STREAM)  # Create a socket
+tcpCliSock.connect(ADDR)  # Connect with the server
+
+runbtn = 'Run'
+
+offset = 0
+offset_x = 0
+offset_y = 0
+forward0 = 'True'
+forward1 = 'True'
+
+
+# =============================================================================
 # Get original offset configuration.
 # =============================================================================
 
