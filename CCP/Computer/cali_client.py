@@ -22,6 +22,7 @@ offset_y = 0
 forward0 = 'True'
 forward1 = 'True'
 
+
 # =============================================================================
 # Get original offset configuration.
 # =============================================================================
@@ -29,19 +30,22 @@ forward1 = 'True'
 def setup():
     pass
 
+
 # =============================================================================
-# The function is to send the command forward to the server, so as to make the 
+# The function is to send the command forward to the server, so as to make the
 # car move forward.
-# ============================================================================= 
+# =============================================================================
 def run(event):
     global runbtn
-    print('motor ', runbtn)
+    print()
+    'motor ', runbtn
     if runbtn == 'Stop':
         tcpCliSock.send('motor_stop')
         runbtn = 'Run'
     elif runbtn == 'Run':
         tcpCliSock.send('motor_run')
         runbtn = 'Stop'
+
 
 def confirm(event):
     tcpCliSock.send('confirm')
@@ -55,92 +59,113 @@ def left_reverse(event):
     left_cmd = 'leftreverse'
     tcpCliSock.send(left_cmd)
 
+
 def right_reverse(event):
     right_cmd = 'rightreverse'
     tcpCliSock.send(right_cmd)
 
 
-#----------------------------------------
+# ----------------------------------------
 
-#---------turing---------------
+# ---------turing---------------
 def fineturn_left(event):
     print('fineturn_left')
     cmd = 'offset-1'
     tcpCliSock.send(cmd)
+
 
 def fineturn_right(event):
     print('fineturn_right')
     cmd = 'offset+1'
     tcpCliSock.send(cmd)
 
+
 def coarseturn_left(event):
-    print('coarseturn_left')
+    print()
+    'coarseturn_left'
     cmd = 'offset-10'
     tcpCliSock.send(cmd)
 
+
 def coarseturn_right(event):
-    print('coarseturn_right')
+    print()
+    'coarseturn_right'
     cmd = 'offset+10'
     tcpCliSock.send(cmd)
 
 
-#------------------------------
+# ------------------------------
 
 # -----------mount-----------------
-#-------------x------------------
+# -------------x------------------
 def finex_left(event):
     cmd = 'offsetx+1'
-    print(cmd)
+    print()
+    cmd
     tcpCliSock.send(cmd)
+
 
 def finex_right(event):
     cmd = 'offsetx-1'
-    print(cmd)
+    print()
+    cmd
     tcpCliSock.send(cmd)
+
 
 def coarsex_left(event):
     cmd = 'offsetx+10'
-    print(cmd)
+    print()
+    cmd
     tcpCliSock.send(cmd)
+
 
 def coarsex_right(event):
     cmd = 'offsetx-10'
-    print(cmd)
+    print()
+    cmd
     tcpCliSock.send(cmd)
 
 
-#---------y-----------------------
+# ---------y-----------------------
 def finey_down(event):
-    print('finey_down')
+    print()
+    'finey_down'
     cmd = 'offsety-1'
     tcpCliSock.send(cmd)
 
+
 def finey_up(event):
-    print('finey_up')
+    print()
+    'finey_up'
     cmd = 'offsety+1'
     tcpCliSock.send(cmd)
 
+
 def coarsey_down(event):
-    print('coarsey_down')
+    print()
+    'coarsey_down'
     cmd = 'offsety-10'
     tcpCliSock.send(cmd)
 
+
 def coarsey_up(event):
-    print('coarsey_up')
+    print()
+    'coarsey_up'
     cmd = 'offsety+10'
     tcpCliSock.send(cmd)
 
 
-#--------------------------------
+# --------------------------------
 
 # =============================================================================
-# Exit the GUI program and close the network connection between the client 
+# Exit the GUI program and close the network connection between the client
 # and server.
 # =============================================================================
 def quit_fun(event):
     top.quit()
     tcpCliSock.send('motor_stop')
     tcpCliSock.close()
+
 
 # =============================================================================
 # Create buttons on motor
@@ -221,7 +246,7 @@ Btn15.bind('<ButtonRelease-1>', quit_fun)
 Btn16.bind('<ButtonRelease-1>', confirm)
 
 # =============================================================================
-# Bind buttons on the keyboard with the corresponding callback function to 
+# Bind buttons on the keyboard with the corresponding callback function to
 # control the car remotely with the keyboard.
 # =============================================================================
 
@@ -249,15 +274,15 @@ label16 = Label(top, text=hori, fg='red')
 
 label17 = Label(top, text='Motor', fg='red')
 label18 = Label(top, text='Left', fg='red')
-#label19 = Label(top, text='Forward', fg='red')
+# label19 = Label(top, text='Forward', fg='red')
 label20 = Label(top, text='Right', fg='red')
 label21 = Label(top, text='Mount', fg='red')
 label22 = Label(top, text='Pan:', fg='red')
-#label23 = Label(top, text='Front', fg='red')
+# label23 = Label(top, text='Front', fg='red')
 label24 = Label(top, text='=== Fine ===', fg='red')
 label25 = Label(top, text='== Coarse ==', fg='red')
 label26 = Label(top, text='Tilt:', fg='red')
-#label27 = Label(top, text='Up', fg='red')
+# label27 = Label(top, text='Up', fg='red')
 label28 = Label(top, text='=== Fine ===', fg='red')
 label29 = Label(top, text='== Coarse ==', fg='red')
 label30 = Label(top, text='Turning', fg='red')
@@ -298,8 +323,10 @@ label30.grid(row=4, column=1)
 label31.grid(row=5, column=1)
 label32.grid(row=6, column=1)
 
+
 def main():
     top.mainloop()
+
 
 if __name__ == '__main__':
     setup()
