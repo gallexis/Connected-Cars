@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 import RPi.GPIO as GPIO
 import video_dir
 import car_dir

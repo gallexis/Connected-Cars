@@ -1,7 +1,7 @@
 #!/bin/bash
 
 
-if [ $1 == "pc" ]
+if [[ $1 == "pc" ]]
 then
     echo "PC"
 
@@ -13,12 +13,14 @@ else
     echo "Raspi"
 
     sudo apt-get install -y \
-    python-dev \
-    python-smbus \
+    python3-dev \
+    python3-smbus \
     subversion \
     libv4l-dev \
     libjpeg8-dev \
     imagemagick
+
+    echo "\n\n installation dependencies completed\n\n"
 
     sudo echo "#blacklist i2c-bcm2708" >> /etc/modprobe.d/raspi-blacklist.conf
 
@@ -33,7 +35,7 @@ else
     sudo modprobe i2c_bcm2708
     sudo modprobe i2c-dev
 
-    echo "i2c drivers: "
+    echo "\n\ni2c drivers: "
     lsmod | grep i2c
 
     #camera

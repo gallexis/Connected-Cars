@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 import RPi.GPIO as GPIO
 import PCA9685 as pwm
 import time    # Import necessary modules
