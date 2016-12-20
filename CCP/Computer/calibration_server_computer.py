@@ -6,13 +6,15 @@ import os
 top = Tk()  # Create a top window
 top.title('Raspberry Pi Smart Video Car Calibration')
 
-HOST = '192.168.0.159'  # Server(Raspberry Pi) IP address
+HOST = ''  # The variable of HOST is null, so the function bind( ) can be bound to all valid addresses.
 PORT = 21567
-BUFSIZ = 1024  # buffer size
+BUFSIZ = 1024  # Size of the buffer
 ADDR = (HOST, PORT)
 
-tcpCliSock = socket(AF_INET, SOCK_STREAM)  # Create a socket
-tcpCliSock.connect(ADDR)  # Connect with the server
+tcpCliSock = socket(AF_INET, SOCK_STREAM)  # Create a socket.
+tcpCliSock.bind(('', PORT))  # Bind the IP address and port number of the server.
+tcpCliSock.listen(5)  # The parameter of listen() defines the number of connections permitted at one time. Once the
+
 
 runbtn = 'Run'
 
@@ -27,7 +29,8 @@ forward1 = 'True'
 # =============================================================================
 
 def setup():
-    pass
+    tcpCliSock.accept()
+    print("connected to car")
 
 # =============================================================================
 # The function is to send the command forward to the server, so as to make the 
