@@ -15,7 +15,6 @@ tcpSerSock.connect(ADDR)  # Connect with the server
 
 
 # connections are full, others will be rejected.
-
 def setup():
     global offset_x, offset_y, offset, forward0, forward1
     offset_x = 0
