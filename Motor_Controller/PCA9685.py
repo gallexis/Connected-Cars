@@ -49,6 +49,7 @@ class PWM(object):
             self.bus_number = self._get_bus_number()
         else:
             self.bus_number = bus_number
+        print (self.bus_number)
         self.bus = smbus.SMBus(self.bus_number)
         if self._DEBUG:
             print((self._DEBUG_INFO, 'Reseting PCA9685 MODE1 (without SLEEP) and MODE2'))
