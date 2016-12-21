@@ -46,17 +46,35 @@ connect(){
     echo "Connected"
 }
 
-echo "================================="
-echo "Master Hotspot creation"
-echo "================================="
-createAdHocNetwork
-
-echo "================================="
-echo "Connection to Master"
-echo "================================="
-connect
 
 
+
+#if code executed in cars
+if [ "$#" -eq 0 ];then
+    echo "================================="
+    echo "Master Hotspot creation"
+    echo "================================="
+    createAdHocNetwork
+
+    echo "================================="
+    echo "Connection to Master"
+    echo "================================="
+    connect
+
+# otherwise, on computer, arg1= interface
+else
+    echo "================================="
+    echo "Computer Hotspot creation"
+    echo "================================="
+
+    echo "Creating ad-hoc network on interface: $1"
+    ifconfig $1 down
+    iwconfig $1 mode ad-hoc
+    iwconfig $1 essid wifi_master_0
+    ifconfig $1 192.168.1.1 netmask 255.255.255.0 up
+    echo "Ad-hoc network created"
+
+fi
 
 
 exit 0
