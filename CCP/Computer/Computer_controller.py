@@ -2,33 +2,6 @@ import gevent
 from tkinter import *
 from socket import *
 
-# =============================================================================
-# The function is to send the command forward to the server, so as to make the
-# car move forward.
-# =============================================================================
-
-# ctrl_cmd = ['forward', 'backward', 'left', 'right', 'stop', 'read cpu_temp', 'home', 'distance', 'x+', 'x-', 'y+', 'y-', 'xy_home']
-"""
-ctrl_cmd = {
-    '0':  motor.ctrl(0), #Stop
-    '1':  motor.forward(),
-    '2':  motor.backward(),
-    '3':  car_dir.turn_left(),
-    '4':  car_dir.turn_right(),
-    '5':  lambda args: forward_speed(args),
-    '6':  lambda args: backward_speed(args),
-    '7':  lambda args: setAngle(args),
-    '8':  video_dir.move_increase_x(),# X+
-    '9':  video_dir.move_decrease_x(), # X-
-    '10': video_dir.move_increase_y(), # Y+
-    '11': video_dir.move_decrease_y(), # Y-
-    '12': video_dir.home_x_y(),# home X_Y
-    '13': lambda args: setSpeed(args),
-    '14': car_dir.home(),
-    '15': lambda : set_cpu_value()
-}
-"""
-
 
 class Computer_controller:
     def __init__(self):
