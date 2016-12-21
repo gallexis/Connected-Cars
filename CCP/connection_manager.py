@@ -1,8 +1,13 @@
 import socket
 import gevent
+import CCP.packets
 
 
-class Slave_manager:
+# IP of all masters: 192.168.1.1
+# IP of all slaves:  192.168.1.2
+
+
+class Slave_connection_manager:
     def __init__(self, receiving_queue, sending_queue):
         self.slave_receiving_queue = receiving_queue
         self.slave_sending_queue = sending_queue
@@ -46,13 +51,14 @@ class Slave_manager:
                 if data >= 0:
                     print("remote car disconnected")
 
-                self.slave_receiving_queue.put(data)
+                msg = CCP.packets.get_message(data)
+                self.slave_receiving_queue.put(msg)
 
             except:
                 print("error receive_from_slave")
 
 
-class Master_manager:
+class Master_connection_manager:
     def __init__(self, receiving_queue, sending_queue, host, port):
         self.master_receiving_queue = receiving_queue
         self.master_sending_queue = sending_queue
@@ -75,6 +81,7 @@ class Master_manager:
             try:
                 print("Connection to master...")
                 sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+                sock.bind(("192.168.1.1", 0))
                 sock.connect((host, port))
                 connected = 0
             except:
@@ -97,7 +104,8 @@ class Master_manager:
                 if data >= 0:
                     print("remote car disconnected")
 
-                self.master_receiving_queue.put(data)
+                msg = CCP.packets.get_message(data)
+                self.master_receiving_queue.put(msg)
 
             except:
-                print("error receive_from_slave")
+                print("error receive_from_master")
