@@ -1,5 +1,12 @@
 #!/bin/bash
 
+"""
+    Can supports up to 10 cars
+    if more, when searching for the last hotspot, it will consider that:
+        wifi_master_2 > wifi_master_10, it's because of getLastESSID()
+
+"""
+
 #global variables:
 INTERFACE0=wlan0
 INTERFACE1=wlan1
@@ -10,15 +17,15 @@ getLastESSID(){
 }
 
 getNewESSID(){
-    local essid=echo $(getLastESSID)
+    local essid=$(getLastESSID)
     local lastChar=${essid: -1}
     ((lastChar++))
-    echo wifi_master_${lastChar}
+    echo "wifi_master_"${lastChar}
 }
 
 # create adhoc network
 createAdHocNetwork(){
-    local essid=echo $(getNewESSID)
+    local essid=$(getNewESSID)
 
     echo "Creating ad-hoc network..."
     ifconfig $INTERFACE1 down
@@ -30,7 +37,7 @@ createAdHocNetwork(){
 
 # connect to wifi
 connect(){
-    local essid=echo $(getLastESSID)
+    local essid=$(getLastESSID)
 
     echo "Trying to connect to Master..."
     iwconfig $INTERFACE0 essid $essid
