@@ -46,7 +46,7 @@ class Slave_connection_manager:
         while True:
             try:
                 data = self.sock.recv(255)
-                if data >= 0:
+                if data <= 0:
                     print("remote car disconnected")
 
                 msg = CCP.packets.get_message(data)
@@ -57,7 +57,7 @@ class Slave_connection_manager:
 
 
 class Master_connection_manager:
-    def __init__(self, receiving_queue, sending_queue, host, port):
+    def __init__(self, receiving_queue, sending_queue):
         self.master_receiving_queue = receiving_queue
         self.master_sending_queue = sending_queue
 
@@ -99,7 +99,7 @@ class Master_connection_manager:
             try:
 
                 data = self.sock.recv(255)
-                if data >= 0:
+                if data <= 0:
                     print("remote car disconnected")
 
                 msg = CCP.packets.get_message(data)
