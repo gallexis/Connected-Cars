@@ -17,7 +17,6 @@ message_order={
 
     "alert_stop":0,
     "alert_warning":1
-
 }
 
 
@@ -25,14 +24,16 @@ def get_message(message):
     return pickle.loads(message)
 
 def create_message(**kargs):
+    assert (len(kargs) >= 2)
+
     type =   kargs["message_type"]
     order=   kargs["message_order"]
     args=    kargs["args"]
 
     return pickle.dumps(
             {
-            "message_type": message_type[type],
-            "message_order": message_order[order],
-            "args": args
-             }
+                "message_type": message_type[type],
+                "message_order": message_order[order],
+                "args": args
+            }
     )

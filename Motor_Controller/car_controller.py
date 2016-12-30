@@ -11,14 +11,14 @@ from time import ctime  # Import necessary modules
 #            'xy_home'}
 
 ctrl_cmd = {
-    '0':  motor.ctrl(0), #Stop
+    '0': motor.ctrl(0),  # Stop
     '1': motor.forward,
     '2': motor.backward,
     '3': car_dir.turn_left,
     '4': car_dir.turn_right,
-    '5':  lambda args: forward_speed(args),
-    '6':  lambda args: backward_speed(args),
-    '7':  lambda args: setAngle(args),
+    '5': lambda args: forward_speed(args),
+    '6': lambda args: backward_speed(args),
+    '7': lambda args: setAngle(args),
     '8': video_dir.move_increase_x,  # X+
     '9': video_dir.move_decrease_x,  # X-
     '10': video_dir.move_increase_y,  # Y+

@@ -1,6 +1,5 @@
 #!/bin/bash
 
-
 if [[ $1 == "pc" ]]
 then
     echo "PC"
@@ -48,9 +47,4 @@ else
     cd ../..
 
 fi
-
-
-
-
-
 

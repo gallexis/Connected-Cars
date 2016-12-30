@@ -1,16 +1,32 @@
 import queue
 import sys
+import subprocess
+
+
+def networks_created(arg=""):
+    networkCreated = -1
+    tries = 3
+    while networkCreated != 0 and tries > 0:
+        networkCreated = subprocess.call("connection.sh " + arg)
+        tries -= 1
+        print(networkCreated)
+
+    if networkCreated == 0:
+        return True
+    else:
+        return False
+
 
 def main():
+
     # computer
     if len(sys.argv) > 1:
+        from CCP.Computer import Computer_controller
 
-        import computer
+        if not networks_created("wlan0"):
+            print("Failed to create the network(s)")
 
-        computer.server()
-        q = queue.Queue()
-
-
+        Computer_controller.Computer_controller()
 
 
 
@@ -19,12 +35,13 @@ def main():
 
         from Motor_controller import car_controller
         from Images_Recognition import void
+        from CCP import connection_manager
 
-        receving_queue = queue.Queue()
+        receiving_queue = queue.Queue()
         sending_queue = queue.Queue()
 
-        car_controller.move_car(receving_queue)
-        #void.start(sending_queue)
+        connection_manager.Slave_connection_manager(receiving_queue, sending_queue)
+        connection_manager.Master_connection_manager(receiving_queue, sending_queue)
 
 
 
