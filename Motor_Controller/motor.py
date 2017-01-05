@@ -14,11 +14,18 @@ Motor0_B = 12  # pin12
 Motor1_A = 13  # pin13
 Motor1_B = 15  # pin15
 
-forward0 = ''
-forward1 = ''
+forward0 = 'True'
+forward1 = 'True'
 
-backward0 = ''
-backward1 = ''
+if forward0 == 'True':
+    backward0 = 'False'
+elif forward0 == 'False':
+    backward0 = 'True'
+if forward1 == 'True':
+    backward1 = 'False'
+elif forward1 == 'False':
+    backward1 = 'True'
+
 
 # ===========================================================================
 # Set channel 4 and 5 of the servo driver IC to generate PWM, thus
@@ -28,6 +35,9 @@ EN_M0 = 4  # servo driver IC CH4
 EN_M1 = 5  # servo driver IC CH5
 
 pins = [Motor0_A, Motor0_B, Motor1_A, Motor1_B]
+
+for pin in pins:
+    GPIO.setup(pin, GPIO.OUT)  # Set all pins' mode as output
 
 p = pwm.PWM()
 p.set_frequency(60)
@@ -46,8 +56,7 @@ def setSpeed(speed):
 
 def setup():
     global forward0, forward1, backward1, backward0
-    forward0 = 'True'
-    forward1 = 'True'
+
     try:
         for line in open("config"):
             if line[0:8] == "forward0":
@@ -56,16 +65,7 @@ def setup():
                 forward1 = line[11:-1]
     except:
         pass
-    if forward0 == 'True':
-        backward0 = 'False'
-    elif forward0 == 'False':
-        backward0 = 'True'
-    if forward1 == 'True':
-        backward1 = 'False'
-    elif forward1 == 'False':
-        backward1 = 'True'
-    for pin in pins:
-        GPIO.setup(pin, GPIO.OUT)  # Set all pins' mode as output
+
 
 
 # ===========================================================================
@@ -74,6 +74,7 @@ def setup():
 # ===========================================================================
 
 def motor0(x):
+    print("x: ", x)
     if x == 'True':
         GPIO.output(Motor0_A, GPIO.LOW)
         GPIO.output(Motor0_B, GPIO.HIGH)
@@ -85,13 +86,15 @@ def motor0(x):
 
 
 def motor1(x):
+    print("x: ", x)
     if x == 'True':
         GPIO.output(Motor1_A, GPIO.LOW)
         GPIO.output(Motor1_B, GPIO.HIGH)
     elif x == 'False':
         GPIO.output(Motor1_A, GPIO.HIGH)
         GPIO.output(Motor1_B, GPIO.LOW)
-
+    else:
+        print('Config Error')
 
 def forward():
     motor0(forward0)

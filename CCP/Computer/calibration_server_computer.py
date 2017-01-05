@@ -307,5 +307,5 @@ def main():
     top.mainloop()
 
 if __name__ == '__main__':
-    setup()
+    setup()  # connected to car
     main()
