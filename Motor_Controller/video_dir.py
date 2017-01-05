@@ -9,7 +9,8 @@ Current_y = 0
 
 home_x = 0
 home_y = 0
-pwm = None
+
+pwm = servo.PWM()  # Initialize the servo controller.
 
 
 def setup():
@@ -32,7 +33,6 @@ def setup():
     Ymax = MaxPulse + offset_y
     home_x = (Xmax + Xmin) / 2
     home_y = Ymin + 80
-    pwm = servo.PWM()  # Initialize the servo controller.
     pwm.set_frequency(60)
 
 
