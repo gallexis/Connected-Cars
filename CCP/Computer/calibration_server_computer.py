@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from tkinter import *
 from socket import *  # Import necessary modules
-import os
+import sys
 
 top = Tk()  # Create a top window
 top.title('Raspberry Pi Smart Video Car Calibration')
@@ -31,8 +31,14 @@ forward1 = 'True'
 
 def setup():
     print("Waiting for a car...")
-    tcpCliSock.accept()
-    tcpCliSock.send(b'motor_run')
+    try:
+        tcpCliSock.accept()
+        tcpCliSock.send(b'motor_run')
+        tcpCliSock.send(b'motor_stop')
+    except Exception as e:
+        print("error accept: ", e)
+        sys.exit(1)
+
     print("Connected to car")
 
 # =============================================================================
