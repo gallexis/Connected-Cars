@@ -130,6 +130,10 @@ class PWM(object):
     def set_value(self, channel, on, off):
         if self._DEBUG:
             print((self._DEBUG_INFO, 'Set channel "%d" to value "%d"' % (channel, off)))
+        print(on)
+        print(off)
+        print(type(on), ' : ', type(0xFF))
+        print(type(off))
         self._write_byte_data(self._LED0_ON_L + 4 * channel, on & 0xFF)
         self._write_byte_data(self._LED0_ON_H + 4 * channel, on >> 8)
         self._write_byte_data(self._LED0_OFF_L + 4 * channel, off & 0xFF)
@@ -138,10 +142,6 @@ class PWM(object):
     def set_all_value(self, on, off):
         if self._DEBUG:
             print((self._DEBUG_INFO, 'Set all channel to value "%d"' % (off)))
-            print(on)
-            print(off)
-            print(type(on), ' : ', type(0xFF))
-            print(type(off))
         self._write_byte_data(self._ALL_LED_ON_L, on & 0xFF)
         self._write_byte_data(self._ALL_LED_ON_H, on >> 8)
         self._write_byte_data(self._ALL_LED_OFF_L, off & 0xFF)
