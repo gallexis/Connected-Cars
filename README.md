@@ -30,7 +30,32 @@ C'est celui qui va se charger de traiter les images et prendre les décisions qu
 Ensuite, il devra informer la voiture qui lui est connecté(sur l'interface2) en lui envoyant un ordre précis
 
 ###les cars master-slave
-
 Ces voitures, ont également deux interfaces:
 - une première pour se connecter au car qui est devant lui, et qui devient ainsi son maitre
 - Il attend une connection sur son deuxième port et devient ainsi maitre de celui qui se connecte à lui
+
+
+##Differents types de messages gérés par le controller
+
+Chaque message aura des "etiquettes" (pour un routage interne):  
+    - emmetteur (caméra, master, slave)
+    - recepteur ??  
+    - priorité (type de message)
+    
+Un dispatcher afin de récupérer chaque message et de les router vers un traitement spécifique,
+en fonction de l'emmetteur.
+
+Ex:  
+
+caméra -> image_rec -> danger -> controller::dispatcher -> controller::image_camera -> CCP::broadcast to master and slave AND motor::stop
+
+
+
+
+
+
+
+
+
+
+

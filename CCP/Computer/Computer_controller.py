@@ -8,19 +8,17 @@ class Computer_controller:
         self.ui = Tk()
         self.sock = None
 
-        gevent.joinall([
-            gevent.spawn(self.start_server()),
-        ])
+        self.start_server()
 
     def start_server(self):
         # Create the socket to connect to the car
-        self.sock = socket(AF_INET, SOCK_STREAM)
-        self.sock.bind(('', 15555))
-        self.sock.listen(5)
+        sock = socket(AF_INET, SOCK_STREAM)
+        sock.bind(('', 15555))
+        sock.listen(5)
 
         while True:
             print("waiting for car...")
-            car_sock, address = self.sock.accept()
+            self.sock, address = sock.accept()
 
             print("car {} connected".format(address))
             # We start the UI when the car is connected
