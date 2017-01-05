@@ -2,8 +2,9 @@ import RPi.GPIO as GPIO
 import video_dir
 import car_dir
 import motor
+import sys
 from socket import *
-from time import ctime  # Import necessary modules
+from time import ctime
 
 HOST = '192.168.43.202'  # Server(Raspberry Pi) IP address
 PORT = 21567
@@ -11,8 +12,12 @@ BUFSIZ = 1024  # buffer size
 ADDR = (HOST, PORT)
 
 tcpSerSock = socket(AF_INET, SOCK_STREAM)  # Create a socket
-tcpSerSock.connect(ADDR)  # Connect with the server
 
+try:
+    tcpSerSock.connect(ADDR)  # Connect with the server
+except Exception as e:
+    print("Error connection to server: ", e)
+    sys.exit(1)
 
 # connections are full, others will be rejected.
 def setup():
@@ -41,6 +46,7 @@ def setup():
                 print('turning1 =', forward1)
     except:
         print('no config file, set config to original')
+
     video_dir.setup()
     car_dir.setup()
     motor.setup()
@@ -59,11 +65,6 @@ def loop():
     global offset_x, offset_y, offset, forward0, forward1
     while True:
         print('Waiting for connection...')
-        # Waiting for connection. Once receiving a connection, the function accept() returns a separate
-        # client socket for the subsequent communication. By default, the function accept() is a blocking
-        # one, which means it is suspended before the connection comes.
-
-        print('...connected')  # Print the IP address of the client connected with the server.
 
         while True:
             data = tcpSerSock.recv(BUFSIZ)  # Receive data sent from the client.
