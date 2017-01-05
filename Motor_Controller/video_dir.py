@@ -7,6 +7,8 @@ MaxPulse = 700
 Current_x = 0
 Current_y = 0
 
+home_x = 0
+home_y = 0
 
 def setup():
     global Xmin, Ymin, Xmax, Ymax, home_x, home_y, pwm

@@ -6,7 +6,7 @@ then
 
     sudo apt-get install -y \
     git \
-    python-tk
+    python3-tk
 
 else
     echo "Raspi"

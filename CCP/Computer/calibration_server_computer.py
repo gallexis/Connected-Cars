@@ -29,8 +29,9 @@ forward1 = 'True'
 # =============================================================================
 
 def setup():
+    print("Waiting for a car...")
     tcpCliSock.accept()
-    print("connected to car")
+    print("Connected to car")
 
 # =============================================================================
 # The function is to send the command forward to the server, so as to make the
