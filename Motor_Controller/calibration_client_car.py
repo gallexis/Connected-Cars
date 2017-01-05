@@ -67,10 +67,16 @@ def loop():
         print('Waiting for connection...')
 
         while True:
-            data = tcpSerSock.recv(BUFSIZ)  # Receive data sent from the client.
-            # Analyze the command received and control the car accordingly.
-            if not data:
-                break
+            try:
+                data = tcpSerSock.recv(BUFSIZ)
+                if len(data) <= 0:
+                    print("Server disconnected.")
+                    return
+
+            except Exception as e:
+                print("Error received data from server: ", e)
+                return
+
             # --------Motor calibration----------
             if data == 'motor_run':
                 print('motor moving forward')
