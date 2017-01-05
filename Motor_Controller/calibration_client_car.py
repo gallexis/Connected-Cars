@@ -70,9 +70,9 @@ def loop():
         while True:
             try:
                 data = tcpSerSock.recv(BUFSIZ)
-                if len(data) <= 0:
-                    print("Server disconnected.")
-                    return
+                # if not data:
+                #      print("Server disconnected.")
+                #    return
 
             except Exception as e:
                 print("Error received data from server: ", e)
