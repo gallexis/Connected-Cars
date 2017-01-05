@@ -38,7 +38,7 @@ class PWM(object):
     RPI_REVISION_2 = ["a01041", "a21041"]
     RPI_REVISION_3 = ["a02082", "a22082"]
 
-    _DEBUG = True
+    _DEBUG = False
     _DEBUG_INFO = 'DEBUG "PCA9685.py":'
 
     def __init__(self, bus_number=None, address=0x40):
@@ -139,6 +139,7 @@ class PWM(object):
         if self._DEBUG:
             print((self._DEBUG_INFO, 'Set all channel to value "%d"' % (off)))
             print(on)
+            print(off)
             print(type(on), ' : ', type(0xFF))
             print(type(off))
         self._write_byte_data(self._ALL_LED_ON_L, on & 0xFF)
