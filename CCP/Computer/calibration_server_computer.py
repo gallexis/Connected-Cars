@@ -13,6 +13,7 @@ ADDR = (HOST, PORT)
 
 tcpCliSock = socket(AF_INET, SOCK_STREAM)  # Create a socket.
 tcpCliSock.bind(('', PORT))  # Bind the IP address and port number of the server.
+tcpCliSock.setsockopt(SOL_SOCKET, SO_REUSEADDR, 1)
 tcpCliSock.listen(5)  # The parameter of listen() defines the number of connections permitted at one time. Once the
 
 
