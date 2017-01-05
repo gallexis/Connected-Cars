@@ -5,7 +5,7 @@ import motor
 from socket import *
 from time import ctime  # Import necessary modules
 
-HOST = '192.168.0.159'  # Server(Raspberry Pi) IP address
+HOST = '192.168.43.202'  # Server(Raspberry Pi) IP address
 PORT = 21567
 BUFSIZ = 1024  # buffer size
 ADDR = (HOST, PORT)
