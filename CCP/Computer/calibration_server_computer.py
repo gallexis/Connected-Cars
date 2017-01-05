@@ -6,15 +6,24 @@ import sys
 top = Tk()  # Create a top window
 top.title('Raspberry Pi Smart Video Car Calibration')
 
-HOST = ''  # The variable of HOST is null, so the function bind( ) can be bound to all valid addresses.
 PORT = 21567
 BUFSIZ = 1024  # Size of the buffer
-ADDR = (HOST, PORT)
 
-tcpCliSock = socket(AF_INET, SOCK_STREAM)  # Create a socket.
-tcpCliSock.bind(('', PORT))  # Bind the IP address and port number of the server.
-tcpCliSock.setsockopt(SOL_SOCKET, SO_REUSEADDR, 1)
-tcpCliSock.listen(1)  # The parameter of listen() defines the number of connections permitted at one time. Once the
+serverSock = socket(AF_INET, SOCK_STREAM)  # Create a socket.
+serverSock.bind(('', PORT))  # Bind the IP address and port number of the server.
+serverSock.setsockopt(SOL_SOCKET, SO_REUSEADDR, 1)
+serverSock.listen(1)  # The parameter of listen() defines the number of connections permitted at one time. Once the
+
+# SETUP
+print("Waiting for a car...")
+try:
+    (tcpCliSock, _) = serverSock.accept()
+except Exception as e:
+    print("error accept: ", e)
+    sys.exit(1)
+
+print("Connected to car")
+
 
 
 runbtn = 'Run'
@@ -24,22 +33,6 @@ offset_x = 0
 offset_y = 0
 forward0 = 'True'
 forward1 = 'True'
-
-# =============================================================================
-# Get original offset configuration.
-# =============================================================================
-
-def setup():
-    print("Waiting for a car...")
-    try:
-        tcpCliSock.accept()
-        tcpCliSock.send(b'motor_run')
-        tcpCliSock.send(b'motor_stop')
-    except Exception as e:
-        print("error accept: ", e)
-        sys.exit(1)
-
-    print("Connected to car")
 
 # =============================================================================
 # The function is to send the command forward to the server, so as to make the
@@ -314,5 +307,4 @@ def main():
     top.mainloop()
 
 if __name__ == '__main__':
-    setup()  # connected to car
     main()
