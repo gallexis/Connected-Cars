@@ -9,6 +9,8 @@ Current_y = 0
 
 home_x = 0
 home_y = 0
+pwm = 0
+
 
 def setup():
     global Xmin, Ymin, Xmax, Ymax, home_x, home_y, pwm
