@@ -78,6 +78,7 @@ if [ "$#" -eq 0 ];then
     echo "Connection to Master"
     echo "================================="
     connect
+    python3 main.py
 
 # otherwise, $1 == computer's wifi interface
 else
@@ -92,7 +93,7 @@ else
     ifconfig $1 192.168.1.1 netmask 255.255.255.0 up
 
     echo "Ad-hoc network created"
-
+    python3 main.py computer
 fi
 
 
