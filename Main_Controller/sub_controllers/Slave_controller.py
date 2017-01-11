@@ -4,7 +4,10 @@ from CCP.packets import reversed_message_order
 
 
 class Slave_controller:
-    def __init__(self, data):
+    def __init__(self):
+        pass
+
+    def handle_message(self, data):
         self.data = data
         self.type = data["message_type"]
         self.order = data["message_order"]

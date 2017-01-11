@@ -2,6 +2,8 @@ import queue
 import sys
 import subprocess
 
+import gevent
+
 
 def networks_created(arg=""):
     networkCreated = -1
@@ -36,15 +38,20 @@ def main():
         from Motor_controller import car_controller
         from Images_Recognition import void
         from CCP import connection_manager
+        from Main_Controller import Main_Controller
 
         if not networks_created():
             print("Failed to create the ad-hoc networks")
             return
 
-        connection_manager.Master_connection()
-        connection_manager.Slave_connection()
+        gevent.joinall([
+            gevent.spawn(connection_manager.Master_connection),
+            gevent.spawn(connection_manager.Slave_connection),
+            gevent.spawn(car_controller.move_car),
+            gevent.spawn(Main_Controller.Main_Controller),
+        ])
 
-        car_controller.move_car()
+
 
         # images_recognition.images_recognition(Controller_IN)
 

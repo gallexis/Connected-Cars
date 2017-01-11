@@ -1,10 +1,7 @@
-import RPi.GPIO as GPIO
 import video_dir
 import car_dir
 import motor
-import os
-from socket import *
-from time import ctime  # Import necessary modules
+from Main_Controller.global_queues import *
 
 #ctrl_cmd = {'0': lambda x:   motor.forward(*arg),
 #            'backward', 'left', 'right', 'stop', 'read cpu_temp', 'home', 'distance', 'x+', 'x-', 'y+', 'y-',
@@ -28,14 +25,6 @@ ctrl_cmd = {
     '14': car_dir.home,
     '15': print  # set_cpu_value,
 }
-
-
-#data = recv()
-#{order:'2', arg:'toto'}
-
-# if 0 < data 20
-
-#    ctrl_cmd[data](arg)
 
 video_dir.setup()
 car_dir.setup()
@@ -78,10 +67,9 @@ def set_cpu_value():
     #tcpCliSock.send('[%s] %0.2f' % (ctime(), temp))
 
 
-def move_car(receving_queue):
+def move_car():
     while True:
-        order, args = receving_queue.get()
-
+        order, args = TO_MOTORS_Q.get()
         try:
             if None == args:
                 ctrl_cmd[order]()
