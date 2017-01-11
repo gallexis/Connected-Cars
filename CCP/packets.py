@@ -37,8 +37,8 @@ reversed_message_order = {v: k for k, v in message_order.items()}
 def get_message(message):
     loaded_message = pickle.loads(message)
 
-    loaded_message["message_type"] = reversed_message_type[loaded_message["message_type"]]
-    loaded_message["message_order"] = reversed_message_order[loaded_message["message_order"]]
+    # loaded_message["message_type"] = reversed_message_type[loaded_message["message_type"]]
+    # loaded_message["message_order"] = reversed_message_order[loaded_message["message_order"]]
 
     return loaded_message
 

@@ -26,7 +26,7 @@ ctrl_cmd = {
     '12': video_dir.home_x_y,  # home X_Y
     '13': lambda args: setSpeed(args),
     '14': car_dir.home,
-    '15': set_cpu_value,
+    '15': print  # set_cpu_value,
 }
 
 
@@ -80,9 +80,13 @@ def set_cpu_value():
 
 def move_car(receving_queue):
     while True:
-        data = receving_queue.get()
-        data_split= data.split(' ')
-        if len(data_split) > 1:
-            ctrl_cmd[data_split[0]](data_split[1])
-        else:
-            ctrl_cmd[data_split[0]]()
+        order, args = receving_queue.get()
+
+        try:
+            if None == args:
+                ctrl_cmd[order]()
+            else:
+                ctrl_cmd[order](args)
+        except Exception as e:
+            print("Error motor order:")
+            print(e)

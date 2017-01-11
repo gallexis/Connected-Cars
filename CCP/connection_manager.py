@@ -1,15 +1,15 @@
 import socket
 import gevent
-import CCP.packets
 import time
+
+import CCP.packets
+from Main_Controller.global_queues import *
 
 # IP of all masters: 192.168.1.1
 # IP of all slaves:  192.168.1.2
 
 class Master_connection:
-    def __init__(self, Controller_IN, To_master):
-        self.Controller_IN = Controller_IN
-        self.To_master = To_master
+    def __init__(self):
 
         self.sock = self.connect_to_master()
         if self.sock == None:
@@ -19,8 +19,8 @@ class Master_connection:
         self.master_alive = True
 
         gevent.joinall([
-            gevent.spawn(self.receive_from_master()),
-            gevent.spawn(self.send_to_master()),
+            gevent.spawn(self.receive_from_master),
+            gevent.spawn(self.send_to_master),
         ])
 
     def connect_to_master(self):
@@ -43,8 +43,8 @@ class Master_connection:
 
     def send_to_master(self):
         while self.master_alive:
-            if not self.To_master.empty():
-                data = self.To_master.get()
+            if not TO_MASTER_Q.empty():
+                data = TO_MASTER_Q.get()
                 self.sock.send(data)
 
     def receive_from_master(self):
@@ -58,7 +58,7 @@ class Master_connection:
 
                 msg = CCP.packets.get_message(data)
                 msg["from"] = "master"
-                self.Controller_IN.put(msg)
+                CONTROLLER_IN_Q.put(msg)
 
             except:
                 print("error receive_from_master")
@@ -66,10 +66,7 @@ class Master_connection:
 
 
 class Slave_connection:
-    def __init__(self, Controller_IN, To_slave):
-        self.Controller_IN = Controller_IN
-        self.To_slave = To_slave
-
+    def __init__(self):
         self.sock = self.wait_for_slave_connection()
         if self.sock == None:
             print("sock == none, cannot connect to slave.")
@@ -78,8 +75,8 @@ class Slave_connection:
         self.slave_alive = True
 
         gevent.joinall([
-            gevent.spawn(self.receive_from_slave()),
-            gevent.spawn(self.send_to_slave()),
+            gevent.spawn(self.receive_from_slave),
+            gevent.spawn(self.send_to_slave),
         ])
 
     def wait_for_slave_connection(self):
@@ -106,8 +103,8 @@ class Slave_connection:
 
     def send_to_slave(self):
         while self.slave_alive:
-            if not self.To_slave.empty():
-                data = self.To_slave.get()
+            if not TO_SLAVE_Q.empty():
+                data = TO_SLAVE_Q.get()
                 self.sock.send(data)
 
     def receive_from_slave(self):
@@ -121,7 +118,7 @@ class Slave_connection:
 
                 msg = CCP.packets.get_message(data)
                 msg["from"] = "slave"
-                self.Controller_IN.put(msg)
+                CONTROLLER_IN_Q.put(msg)
 
             except:
                 print("error receive_from_slave")
