@@ -37,19 +37,24 @@ def main():
         from Images_Recognition import void
         from CCP import connection_manager
 
-        receiving_queue = queue.Queue()
-        sending_queue = queue.Queue()
+        Controller_IN = queue.Queue()
+
+        To_master = queue.Queue()
+        To_slave = queue.Queue()
+        To_Motors = queue.Queue()
 
         if not networks_created():
             print("Failed to create the ad-hoc networks")
             return
 
-        connection_manager.Slave_manager(receiving_queue, sending_queue)
-        connection_manager.Master_manager(receiving_queue, sending_queue)
+        connection_manager.Master_connection(Controller_IN, To_master)
+        connection_manager.Slave_connection(Controller_IN, To_slave)
 
-        # start images_recognition here
+        car_controller.move_car(To_Motors)
 
-        # controller(receiving_queue, sending_queue)
+        # images_recognition.images_recognition(Controller_IN)
+
+        # controller.start()
 
 
 
