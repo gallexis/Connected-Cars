@@ -51,7 +51,7 @@ caméra -> image_rec -> danger -> controller::dispatcher -> controller::image_ca
 
 
 
-
+## Remplacer tous les "print" par des "logging"
 
 
 

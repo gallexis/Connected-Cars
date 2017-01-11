@@ -44,8 +44,8 @@ def main():
             print("Failed to create the ad-hoc networks")
             return
 
-        connection_manager.Slave_connection_manager(receiving_queue, sending_queue)
-        connection_manager.Master_connection_manager(receiving_queue, sending_queue)
+        connection_manager.Slave_manager(receiving_queue, sending_queue)
+        connection_manager.Master_manager(receiving_queue, sending_queue)
 
         # start images_recognition here
 

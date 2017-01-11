@@ -90,6 +90,7 @@ else
     iwconfig $1 mode ad-hoc
     iwconfig $1 essid wifi_master_0
     ifconfig $1 192.168.1.1 netmask 255.255.255.0 up
+
     echo "Ad-hoc network created"
 
 fi
