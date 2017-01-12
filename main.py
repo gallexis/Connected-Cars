@@ -1,7 +1,10 @@
 import sys
 import gevent
+from gevent import monkey
+
 
 def main():
+    monkey.patch_all()
 
     # computer
     if len(sys.argv) > 1:
