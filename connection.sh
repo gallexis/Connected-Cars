@@ -49,6 +49,7 @@ createAdHocNetwork(){
     ifconfig $INTERFACE1 down
     iwconfig $INTERFACE1 mode ad-hoc
     iwconfig $INTERFACE1 essid $essid
+    iwconfig $INTERFACE1 key 1234567890
     ifconfig $INTERFACE1 192.168.1.1 netmask 255.255.255.0 up
     echo "Ad-hoc network created"
 }
