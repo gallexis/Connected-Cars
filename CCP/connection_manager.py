@@ -10,7 +10,6 @@ from Main_Controller.global_queues import *
 
 class Master_connection:
     def __init__(self):
-
         self.sock = self.connect_to_master()
         if self.sock == None:
             print("sock == none, cannot connect to master.")
@@ -37,7 +36,7 @@ class Master_connection:
             except:
                 connected -= 1
                 print("Error master connection")
-                time.sleep(1)
+                time.sleep(4)
 
         return sock
 
@@ -97,7 +96,7 @@ class Slave_connection:
             except:
                 print("Error slave connection")
                 tries -= 1
-                time.sleep(1)
+                time.sleep(4)
 
         return car_sock
 

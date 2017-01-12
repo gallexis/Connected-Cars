@@ -67,6 +67,8 @@ connect(){
 }
 
 
+
+
 #if code executed in cars (no arg)
 if [ "$#" -eq 0 ];then
     echo "================================="

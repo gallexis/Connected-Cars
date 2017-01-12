@@ -54,6 +54,11 @@ caméra -> image_rec -> danger -> controller::dispatcher -> controller::image_ca
 ## Remplacer tous les "print" par des "logging"
 
 
+## start script on boot
+
+sudo su && crontab -l > mycron && \
+echo "@reboot ./home/pi/Connected-Cars/connection.sh" >> mycron && \
+crontab mycron && rm mycron
 
 
 

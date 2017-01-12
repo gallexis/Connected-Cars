@@ -1,23 +1,16 @@
-import queue
 import sys
-import subprocess
-
 import gevent
-
-
 
 def main():
 
     # computer
     if len(sys.argv) > 1:
         from CCP.Computer import Computer_controller
-
         Computer_controller.Computer_controller()
-
 
     #car
     else:
-        from Motor_controller import car_controller
+        from Motor_Controller import car_controller
         from Images_Recognition import void
         from CCP import connection_manager
         from Main_Controller import Main_Controller
