@@ -1,4 +1,4 @@
-import PCA9685 as servo
+import Motor_Controller.PCA9685 as servo
 import time  # Import necessary modules
 
 

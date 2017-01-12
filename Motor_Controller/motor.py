@@ -1,5 +1,5 @@
 import RPi.GPIO as GPIO
-import PCA9685 as pwm
+import Motor_Controller.PCA9685 as pwm
 import time  # Import necessary modules
 
 GPIO.setwarnings(False)
