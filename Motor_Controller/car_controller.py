@@ -68,13 +68,15 @@ def set_cpu_value():
 
 
 def move_car():
+    print("in movecar")
     while True:
-        order, args = TO_MOTORS_Q.get()
-        try:
-            if None == args:
-                ctrl_cmd[order]()
-            else:
-                ctrl_cmd[order](args)
-        except Exception as e:
-            print("Error motor order:")
-            print(e)
+        if not TO_MOTORS_Q.empty():
+            order, args = TO_MOTORS_Q.get()
+            try:
+                if None == args:
+                    ctrl_cmd[order]()
+                else:
+                    ctrl_cmd[order](args)
+            except Exception as e:
+                print("Error motor order:")
+                print(e)

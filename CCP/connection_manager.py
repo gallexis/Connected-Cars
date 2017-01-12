@@ -30,8 +30,9 @@ class Master_connection:
             try:
                 print("Connection to master...")
                 sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-                sock.bind(("192.168.1.2", 0))
-                sock.connect(("192.168.1.1", 3000))
+                sock.bind(("192.168.43.41", 0))
+                sock.connect(("192.168.43.202", 3000))
+                print("Connected to master")
                 break
             except:
                 connected -= 1
