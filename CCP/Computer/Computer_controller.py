@@ -115,47 +115,47 @@ class Computer_controller:
 
     def forward_fun(self, event):
         print('forward')
-        self.sock.send('1')
+        self.sock.send(b'1')
 
     def backward_fun(self, event):
         print('backward')
-        self.sock.send('2')
+        self.sock.send(b'2')
 
     def left_fun(self, event):
         print('left')
-        self.sock.send('3')
+        self.sock.send(b'3')
 
     def right_fun(self, event):
         print('right')
-        self.sock.send('4')
+        self.sock.send(b'4')
 
     def stop_fun(self, event):
         print('stop')
-        self.sock.send('0')
+        self.sock.send(b'0')
 
     def home_fun(self, event):
         print('home')
-        self.sock.send('14')
+        self.sock.send(b'14')
 
     def x_increase(self, event):
         print('x+')
-        self.sock.send('8')
+        self.sock.send(b'8')
 
     def x_decrease(self, event):
         print('x-')
-        self.sock.send('9')
+        self.sock.send(b'9')
 
     def y_increase(self, event):
         print('y+')
-        self.sock.send('10')
+        self.sock.send(b'10')
 
     def y_decrease(self, event):
         print('y-')
-        self.sock.send('11')
+        self.sock.send(b'11')
 
     def xy_home(self, event):
         print('xy_home')
-        self.sock.send('12')
+        self.sock.send(b'12')
 
     # =============================================================================
     # Exit the GUI program and close the network connection between the client

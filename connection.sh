@@ -21,8 +21,8 @@ INTERFACE1=wlan1
 #        wifi_master_1
 #        wifi_master_2   <- will return this one
 getLastESSID(){
-    local res= iw dev $INTERFACE0 scan | egrep "SSID: wifi_master_" | sort -k 2 -g | tail -1
-    echo res
+     iw dev $INTERFACE0 scan | egrep "SSID: wifi_master_" | sort -k 2 -g | tail -1
+
 }
 
 #
