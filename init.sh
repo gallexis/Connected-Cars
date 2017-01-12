@@ -19,6 +19,8 @@ else
     libjpeg8-dev \
     imagemagick
 
+    pip3 install gevent
+
     echo "\n\n installation dependencies completed\n\n"
 
     sudo echo "#blacklist i2c-bcm2708" >> /etc/modprobe.d/raspi-blacklist.conf

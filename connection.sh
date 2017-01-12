@@ -62,6 +62,7 @@ connect(){
 
     echo "Trying to connect to Master..."
     iwconfig $INTERFACE0 essid $essid
+    echo $essid
     ifdown $INTERFACE0
     ifconfig $INTERFACE0 192.168.1.2 netmask 255.255.255.0 up
     echo "Connected"
