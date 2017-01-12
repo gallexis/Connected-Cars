@@ -13,7 +13,7 @@ class Computer_controller:
     def start_server(self):
         # Create the socket to connect to the car
         sock = socket(AF_INET, SOCK_STREAM)
-        sock.bind(('', 15555))
+        sock.bind(('', 3000))
         sock.listen(5)
 
         while True:
