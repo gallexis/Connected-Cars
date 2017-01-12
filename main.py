@@ -16,10 +16,10 @@ def main():
         from Main_Controller import Main_Controller
 
         gevent.joinall([
-            gevent.spawn(connection_manager.Master_connection),
-            gevent.spawn(connection_manager.Slave_connection),
             gevent.spawn(car_controller.move_car),
             gevent.spawn(Main_Controller.Main_Controller),
+            gevent.spawn(connection_manager.Master_connection),
+            gevent.spawn(connection_manager.Slave_connection),
         ])
 
 
