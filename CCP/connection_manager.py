@@ -1,6 +1,6 @@
 import socket
-import gevent
 import time
+import _thread
 
 import CCP.packets
 from Main_Controller.global_queues import *
@@ -17,10 +17,12 @@ class Master_connection:
 
         self.master_alive = True
 
-        gevent.joinall([
-            gevent.spawn(self.receive_from_master),
-            gevent.spawn(self.send_to_master),
-        ])
+        try:
+            _thread.start_new_thread(self.receive_from_master, ())
+            _thread.start_new_thread(self.send_to_master, ())
+        except:
+            print("Error: unable to start Master_connection's thread")
+
 
     def connect_to_master(self):
         connected = 5
@@ -74,10 +76,11 @@ class Slave_connection:
 
         self.slave_alive = True
 
-        gevent.joinall([
-            gevent.spawn(self.receive_from_slave),
-            gevent.spawn(self.send_to_slave),
-        ])
+        try:
+            _thread.start_new_thread(self.receive_from_slave, ())
+            _thread.start_new_thread(self.send_to_slave, ())
+        except:
+            print("Error: unable to start Slave_connection's thread")
 
     def wait_for_slave_connection(self):
         connected = False

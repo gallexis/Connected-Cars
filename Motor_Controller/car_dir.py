@@ -1,6 +1,6 @@
 import Motor_Controller.PCA9685 as servo
 import time  # Import necessary modules
-
+import os
 
 def Map(x, in_min, in_max, out_min, out_max):
     return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min
@@ -8,12 +8,14 @@ def Map(x, in_min, in_max, out_min, out_max):
 
 def setup():
     global leftPWM, rightPWM, homePWM, pwm
+    ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
+
     leftPWM = 400
     homePWM = 450
     rightPWM = 500
     offset = 0
     try:
-        for line in open('config'):
+        for line in open(ROOT_DIR + '/config'):
             if line[0:8] == 'offset =':
                 offset = int(line[9:-1])
     except:

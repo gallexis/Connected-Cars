@@ -1,5 +1,6 @@
 import Motor_Controller.PCA9685 as servo
 import time  # Import necessary modules
+import os
 
 MinPulse = 200
 MaxPulse = 700
@@ -17,8 +18,10 @@ def setup():
     global Xmin, Ymin, Xmax, Ymax, home_x, home_y, pwm
     offset_x = 0
     offset_y = 0
+    ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
+
     try:
-        for line in open('config'):
+        for line in open(ROOT_DIR + '/config'):
             if line[0:8] == 'offset_x':
                 offset_x = int(line[11:-1])
             # print 'offset_x =', offset_x

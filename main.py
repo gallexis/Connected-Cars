@@ -1,8 +1,4 @@
 import sys
-import gevent
-from gevent import monkey
-
-monkey.patch_all()
 
 def main():
 
@@ -13,28 +9,25 @@ def main():
 
     #car
     else:
-        from Motor_Controller import car_controller
+        from Motor_Controller import Car_Controller
         from Images_Recognition import void
         from CCP import connection_manager
         from Main_Controller import Main_Controller
 
-        gevent.joinall([
-            gevent.spawn(car_controller.move_car),
-            gevent.spawn(Main_Controller.Main_Controller),
-            gevent.spawn(connection_manager.Master_connection),
-            gevent.spawn(connection_manager.Slave_connection),
-        ])
+        car_controller = Car_Controller.Car_Controller().start()
+        main_controller = Main_Controller.Main_Controller().start()
+        master_connection = connection_manager.Master_connection()
+        slave_connection = connection_manager.Slave_connection()
+        # images_recognition = Images_Recognition.Images_Recognition().start()
 
 
-
-        # images_recognition.images_recognition(Controller_IN)
-
-        # controller.start()
+        main_controller.join();
+        print("main_controller thread: terminated")
+        car_controller.join();
+        print("car_controller thread: terminated")
 
 
 
 if __name__ == '__main__':
     main()
-
-
     # TODO: replace prints by loggings

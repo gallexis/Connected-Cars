@@ -1,6 +1,7 @@
 import RPi.GPIO as GPIO
 import Motor_Controller.PCA9685 as pwm
 import time  # Import necessary modules
+import os
 
 GPIO.setwarnings(False)
 GPIO.setmode(GPIO.BOARD)  # Number GPIOs by its physical location
@@ -56,9 +57,10 @@ def setSpeed(speed):
 
 def setup():
     global forward0, forward1, backward1, backward0
+    ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
 
     try:
-        for line in open("config"):
+        for line in open(ROOT_DIR + "/config"):
             if line[0:8] == "forward0":
                 forward0 = line[11:-1]
             if line[0:8] == "forward1":
