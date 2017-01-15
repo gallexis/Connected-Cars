@@ -62,10 +62,13 @@ class Master_connection:
                 #     print("remote car disconnected")
                 #     self.master_alive = False
                 #     return
-
+                print("1")
                 msg = CCP.packets.get_message(data)
+                print("2")
                 msg["from"] = "master"
+                print("3")
                 CONTROLLER_IN_Q.put(msg)
+                print("4")
 
             except Exception as e:
                 print("error receive_from_master here")
