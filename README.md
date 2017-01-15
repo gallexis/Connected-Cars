@@ -60,7 +60,3 @@ sudo su && crontab -l > mycron && \
 echo "@reboot ./home/pi/Connected-Cars/connection.sh" >> mycron && \
 crontab mycron && rm mycron
 
-
-
-
-

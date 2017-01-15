@@ -17,10 +17,10 @@ class Computer_controller:
         sock.listen(5)
 
         while True:
-            print("waiting for car...")
+            print("Waiting for car...")
             self.sock, address = sock.accept()
 
-            print("car {} connected".format(address))
+            print("Car {} connected".format(address))
             # We start the UI when the car is connected
             self.start_ui()
 
@@ -163,11 +163,11 @@ class Computer_controller:
     # =============================================================================
     def quit_fun(self, event):
         self.ui.quit()
-        self.sock.send('stop')
+        self.sock.send(b'stop')
         self.sock.close()
 
     def changeSpeed(self, ev=None):
         self.spd = self.speed.get()
         data = 'speed ' + str(self.spd)  # Change the integers into strings and combine them with the string 'speed'.
         print('sendData = %s' % data)
-        self.sock.send(data)  # Send the speed data to the server(Raspberry Pi)
+        self.sock.send(data.encode('utf-8'))  # Send the speed data to the server(Raspberry Pi)

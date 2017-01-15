@@ -47,7 +47,11 @@ class Master_connection:
         while self.master_alive:
             if not TO_MASTER_Q.empty():
                 data = TO_MASTER_Q.get()
-                self.sock.send(data)
+                try:
+                    self.sock.send(data.encode('utf-8'))
+                except Exception as e:
+                    print("Error send to master: ")
+                    print(e)
 
     def receive_from_master(self):
         while self.master_alive:
@@ -108,7 +112,11 @@ class Slave_connection:
         while self.slave_alive:
             if not TO_SLAVE_Q.empty():
                 data = TO_SLAVE_Q.get()
-                self.sock.send(data)
+                try:
+                    self.sock.send(data)
+                except Exception as e:
+                    print("Error send_to_slave: ")
+                    print(e)
 
     def receive_from_slave(self):
         while self.slave_alive:

@@ -1,6 +1,9 @@
 import sys
+import logging
+
 
 def main():
+    logging.basicConfig(filename='example.log', level=logging.DEBUG)
 
     # computer
     if len(sys.argv) > 1:
@@ -21,9 +24,9 @@ def main():
         # images_recognition = Images_Recognition.Images_Recognition().start()
 
 
-        main_controller.join();
+        main_controller.join()
         print("main_controller thread: terminated")
-        car_controller.join();
+        car_controller.join()
         print("car_controller thread: terminated")
 
 

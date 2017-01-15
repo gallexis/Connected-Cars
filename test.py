@@ -1,3 +1,4 @@
 import os
 
-print(os.path.dirname(os.path.abspath(__file__)))
+print("main_controller thread: terminated");
+print("main_controller thread: terminated")
