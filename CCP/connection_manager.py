@@ -66,8 +66,9 @@ class Master_connection:
                 msg["from"] = "master"
                 CONTROLLER_IN_Q.put(msg)
 
-            except:
+            except Exception as e:
                 print("error receive_from_master")
+                print(e)
                 self.master_alive = False
 
 
@@ -131,7 +132,8 @@ class Slave_connection:
                 msg["from"] = "slave"
                 CONTROLLER_IN_Q.put(msg)
 
-            except:
+            except Exception as e:
                 print("error receive_from_slave")
+                print(e)
                 self.slave_alive = False
                 return
