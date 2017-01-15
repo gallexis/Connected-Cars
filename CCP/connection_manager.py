@@ -5,6 +5,7 @@ import _thread
 import CCP.packets
 from Main_Controller.global_queues import *
 
+import sys
 # IP of all masters: 192.168.1.1
 # IP of all slaves:  192.168.1.2
 
@@ -57,7 +58,7 @@ class Master_connection:
         while self.master_alive:
             try:
                 data = self.sock.recv(255)
-                if data <= 0:
+                if sys.getsizeof(data) <= 0:
                     print("remote car disconnected")
                     self.master_alive = False
                     return
