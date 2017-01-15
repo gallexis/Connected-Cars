@@ -62,7 +62,7 @@ class Master_connection:
                     print("remote car disconnected")
                     self.master_alive = False
                     return
-                print("1")
+                print("1çç")
                 msg = CCP.packets.get_message(data)
                 print("2")
                 msg["from"] = "master"
