@@ -40,7 +40,7 @@ def get_message(message):
     # loaded_message["message_type"] = reversed_message_type[loaded_message["message_type"]]
     # loaded_message["message_order"] = reversed_message_order[loaded_message["message_order"]]
 
-    return loaded_message
+    return bytearray(loaded_message)
 
 
 def create_message(**kargs):
