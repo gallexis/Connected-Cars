@@ -58,10 +58,10 @@ class Master_connection:
         while self.master_alive:
             try:
                 data = self.sock.recv(255)
-                if sys.getsizeof(data) <= 0:
-                    print("remote car disconnected")
-                    self.master_alive = False
-                    return
+                # if sys.getsizeof(data) <= 0:
+                #     print("remote car disconnected")
+                #     self.master_alive = False
+                #     return
 
                 msg = CCP.packets.get_message(data)
                 msg["from"] = "master"
