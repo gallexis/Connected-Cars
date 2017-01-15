@@ -68,7 +68,7 @@ class Master_connection:
                 CONTROLLER_IN_Q.put(msg)
 
             except Exception as e:
-                print("error receive_from_master")
+                print("error receive_from_master here")
                 print(e)
                 self.master_alive = False
 
