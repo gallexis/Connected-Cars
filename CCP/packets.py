@@ -8,7 +8,7 @@ connection = ["connection_init",
 
 driving = ['stop',
            'move_forward',
-           'move_backward',
+           'move_forward',
            'turn_left',
            'turn_right',
            'forward_speed',
@@ -45,13 +45,7 @@ def get_message(binary_data):
         return None
 
 
-def create_message(**kargs):
-    assert (len(kargs) >= 2)
-
-    type =   kargs["message_type"]
-    order=   kargs["message_order"]
-    args=    kargs["args"]
-
+def create_message(type, order, args):
     try:
         if type in list(message_type.keys()) and order in message_type[type]:
             return pickle.dumps(

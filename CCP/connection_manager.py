@@ -49,7 +49,9 @@ class Master_connection:
 
     def send_to_master(self):
         while self.master_alive:
-            to_send(self.sock, TO_MASTER_Q)
+            if not TO_MASTER_Q.empty():
+                data = TO_MASTER_Q.get()
+                to_send(self.sock, data)
 
 
     def receive_from_master(self):
@@ -99,7 +101,9 @@ class Slave_connection:
 
     def send_to_slave(self):
         while self.slave_alive:
-            to_send(self.sock, TO_SLAVE_Q)
+            if not TO_SLAVE_Q.empty():
+                data = TO_SLAVE_Q.get()
+                to_send(self.sock, data)
 
     def receive_from_slave(self):
         while self.slave_alive:
@@ -109,19 +113,17 @@ class Slave_connection:
 ###
 # Generic functions
 ###
-def to_send(sock, queue):
-    if not queue.empty():
-        data = queue.get()
-        try:
-            length = len(data)
-            data = struct.pack("<H", length) + data
-            print("to send:")
-            print(data)
-            sock.send(data)
+def to_send(sock, data):
+    try:
+        length = len(data)
+        data = struct.pack("<H", length) + data
+        print("to send:")
+        print(data)
+        sock.send(data)
 
-        except Exception as e:
-            print("Error to_send: ")
-            print(e)
+    except Exception as e:
+        print("Error to_send: ")
+        print(e)
 
 
 def to_receive(sock, rout_from):

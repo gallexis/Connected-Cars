@@ -1,4 +1,4 @@
-import gevent
+from CCP import packets, connection_manager
 from tkinter import *
 from socket import *
 
@@ -9,6 +9,12 @@ class Computer_controller:
         self.sock = None
 
         self.start_server()
+
+    def send(self, driving_order, args=None):
+        message = packets.create_message("driving", driving_order, args)
+        if not message == None:
+            connection_manager.to_send(self.sock, message)
+
 
     def start_server(self):
         # Create the socket to connect to the car
@@ -115,59 +121,59 @@ class Computer_controller:
 
     def forward_fun(self, event):
         print('forward')
-        self.sock.send(b'1')
+        self.send("move_forward")
 
     def backward_fun(self, event):
         print('backward')
-        self.sock.send(b'2')
+        self.send("'move_forward'")
 
     def left_fun(self, event):
         print('left')
-        self.sock.send(b'3')
+        self.send("turn_left")
 
     def right_fun(self, event):
         print('right')
-        self.sock.send(b'4')
+        self.send("turn_right")
 
     def stop_fun(self, event):
         print('stop')
-        self.sock.send(b'0')
+        self.send("stop")
 
     def home_fun(self, event):
         print('home')
-        self.sock.send(b'14')
+        self.send("home")
 
     def x_increase(self, event):
         print('x+')
-        self.sock.send(b'8')
+        self.send("x+")
 
     def x_decrease(self, event):
         print('x-')
-        self.sock.send(b'9')
+        self.send("x-")
 
     def y_increase(self, event):
         print('y+')
-        self.sock.send(b'10')
+        self.send("y+")
 
     def y_decrease(self, event):
         print('y-')
-        self.sock.send(b'11')
+        self.send("y-")
 
     def xy_home(self, event):
         print('xy_home')
-        self.sock.send(b'12')
+        self.send("xy_home")
 
     # =============================================================================
     # Exit the GUI program and close the network connection between the client
     # and server.
     # =============================================================================
     def quit_fun(self, event):
-        self.ui.quit()
-        self.sock.send(b'stop')
+        self.send('stop')
         self.sock.close()
+        self.ui.quit()
 
     def changeSpeed(self, ev=None):
         self.spd = self.speed.get()
         data = 'speed ' + str(self.spd)  # Change the integers into strings and combine them with the string 'speed'.
         print('sendData = %s' % data)
-        self.sock.send(data.encode('utf-8'))  # Send the speed data to the server(Raspberry Pi)
+        self.send("set_speed", self.spd)  # Send the speed data to the server(Raspberry Pi)
