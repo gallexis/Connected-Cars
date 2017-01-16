@@ -3,6 +3,8 @@ import time
 import _thread
 import struct
 
+from __builtin__ import len
+
 import CCP.packets
 from Main_Controller.global_queues import *
 
@@ -135,7 +137,7 @@ def to_receive(sock, rout_from):
         print("length2: ", length)
 
         data = recvall(sock, length)
-        if data <= 0:
+        if len(data) <= 0:
             raise ("remote car disconnected")
 
         msg = CCP.packets.get_message(data)
