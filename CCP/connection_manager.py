@@ -3,7 +3,6 @@ import time
 import _thread
 import struct
 
-from __builtin__ import len
 
 import CCP.packets
 from Main_Controller.global_queues import *
