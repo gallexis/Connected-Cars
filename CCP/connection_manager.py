@@ -57,7 +57,7 @@ class Master_connection:
 
     def receive_from_master(self):
         while self.master_alive:
-            self.master_alive = to_receive(self.sock, "slave")
+            self.master_alive = to_receive(self.sock, "master")
 
 
 ##########
@@ -130,10 +130,7 @@ def to_send(sock, data):
 def to_receive(sock, rout_from):
     try:
         length = sock.recv(2)
-        print("length1: ", length)
-
         length = struct.unpack("<H", length)[0]
-        print("length2: ", length)
 
         data = recvall(sock, length)
         if len(data) <= 0:

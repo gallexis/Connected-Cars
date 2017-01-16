@@ -46,9 +46,6 @@ def get_message(binary_data):
         print(e)
         return None
 
-
-
-
 def create_message(type, order, args):
     try:
         if type in list(message_type.keys()) and order in message_type[type]:
