@@ -1,16 +1,17 @@
 import socket
 import time
 import _thread
+import struct
 
 import CCP.packets
 from Main_Controller.global_queues import *
 
-import sys
-import struct
 # IP of all masters: 192.168.1.1
 # IP of all slaves:  192.168.1.2
 
-
+##########
+# MASTER
+##########
 class Master_connection:
     def __init__(self):
         self.sock = self.connect_to_master()
@@ -48,45 +49,17 @@ class Master_connection:
 
     def send_to_master(self):
         while self.master_alive:
-            if not TO_MASTER_Q.empty():
-                data = TO_MASTER_Q.get()
-                try:
-                    length = bytes(len(data))
-                    data = struct.pack("H", length) + data
-                    self.sock.send(data)
-                except Exception as e:
-                    print("Error send to master: ")
-                    print(e)
+            to_send(self.sock, TO_MASTER_Q)
+
 
     def receive_from_master(self):
         while self.master_alive:
-            try:
-                length = self.sock.recv(2)
-                length = struct.unpack("H", length)[0]
-                print("length: ", length)
-
-                data = recvall(self.sock, length)
-                if sys.getsizeof(data) <= 0:
-                    print("remote car disconnected")
-                    self.master_alive = False
-                    return
-
-                msg = CCP.packets.get_message(data)
-                if msg == None:
-                    print("error decoding received packet... (receive_from_master)")
-                    continue
-
-                msg["from"] = "master"
-
-                CONTROLLER_IN_Q.put(msg)
+            self.master_alive = to_receive(self.sock, "slave")
 
 
-            except Exception as e:
-                print("error receive_from_master")
-                print(e)
-                self.master_alive = False
-
-
+##########
+# SLAVE
+##########
 class Slave_connection:
     def __init__(self):
         self.sock = self.wait_for_slave_connection()
@@ -126,43 +99,51 @@ class Slave_connection:
 
     def send_to_slave(self):
         while self.slave_alive:
-            if not TO_SLAVE_Q.empty():
-                data = TO_SLAVE_Q.get()
-                try:
-                    length = bytes(len(data))
-                    data = struct.pack("H", length) + data
-                    self.sock.send(data)
-
-                except Exception as e:
-                    print("Error send_to_slave: ")
-                    print(e)
+            to_send(self.sock, TO_SLAVE_Q)
 
     def receive_from_slave(self):
         while self.slave_alive:
-            try:
-                length = self.sock.recv(2)
-                length = struct.unpack("H", length)[0]
-                print("length: ", length)
+            self.slave_alive = to_receive(self.sock, "slave")
 
-                data = recvall(self.sock, length)
-                if data <= 0:
-                    print("remote car disconnected")
-                    self.slave_alive = False
-                    return
 
-                msg = CCP.packets.get_message(data)
-                if msg == None:
-                    print("error decoding received packet... (receive_from_slave)")
-                    continue
+###
+# Generic functions
+###
+def to_send(sock, queue):
+    if not queue.empty():
+        data = queue.get()
+        try:
+            length = len(data)
+            data = struct.pack("<H", length) + data
+            sock.send(data)
 
-                msg["from"] = "slave"
-                CONTROLLER_IN_Q.put(msg)
+        except Exception as e:
+            print("Error to_send: ")
+            print(e)
 
-            except Exception as e:
-                print("error receive_from_slave")
-                print(e)
-                self.slave_alive = False
-                return
+
+def to_receive(sock, rout_from):
+    try:
+        length = sock.recv(2)
+        length = struct.unpack("<H", length)[0]
+        print("length: ", length)
+
+        data = recvall(sock, length)
+        if data <= 0:
+            raise ("remote car disconnected")
+
+        msg = CCP.packets.get_message(data)
+        if msg == None:
+            print("error decoding received packet... ")
+            return True
+
+        msg["from"] = rout_from
+        CONTROLLER_IN_Q.put(msg)
+
+    except Exception as e:
+        print("error to_receive")
+        print(e)
+        return False
 
 
 def recvall(sock, length):
