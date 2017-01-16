@@ -1,6 +1,5 @@
 from Main_Controller.global_queues import *
-from CCP.packets import reversed_message_type
-from CCP.packets import reversed_message_order
+from CCP.packets import *
 
 
 class Slave_controller:
@@ -20,7 +19,7 @@ class Slave_controller:
         pass
 
     def routing(self):
-        type = reversed_message_type[self.type]
+        type = message_type[self.type]
 
         if type == "alert":
             self.alert_manager()
