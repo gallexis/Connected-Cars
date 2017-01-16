@@ -12,6 +12,7 @@ class Computer_controller:
 
     def send(self, driving_order, args=None):
         message = packets.create_message("driving", driving_order, args)
+        print('computer sends:', message)
         if not message == None:
             connection_manager.to_send(self.sock, message)
 
@@ -29,6 +30,7 @@ class Computer_controller:
             print("Car {} connected".format(address))
             # We start the UI when the car is connected
             self.start_ui()
+            print("UI exited")
 
     def start_ui(self):
         self.spd = 50
