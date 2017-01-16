@@ -36,7 +36,13 @@ message_type={
 
 
 def get_message(binary_data):
-    loaded_message = pickle.loads(binary_data)
+    try:
+        loaded_message = pickle.loads(binary_data)
+        print(loaded_message)
+    except Exception as e:
+        print(e)
+        return None
+
     keys = list(message_type.keys())
 
     if "message_type" in keys and "message_order" in keys and "args" in keys:
