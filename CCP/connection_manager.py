@@ -6,8 +6,10 @@ import CCP.packets
 from Main_Controller.global_queues import *
 
 import sys
+import struct
 # IP of all masters: 192.168.1.1
 # IP of all slaves:  192.168.1.2
+
 
 class Master_connection:
     def __init__(self):
@@ -49,7 +51,9 @@ class Master_connection:
             if not TO_MASTER_Q.empty():
                 data = TO_MASTER_Q.get()
                 try:
-                    self.sock.send(data.encode('utf-8'))
+                    length = bytes(len(data))
+                    data = struct.pack("H", length) + data
+                    self.sock.send(data)
                 except Exception as e:
                     print("Error send to master: ")
                     print(e)
@@ -57,7 +61,11 @@ class Master_connection:
     def receive_from_master(self):
         while self.master_alive:
             try:
-                data = self.sock.recv(255)
+                length = self.sock.recv(2)
+                length = struct.unpack("H", length)[0]
+                print("length: ", length)
+
+                data = recvall(self.sock, length)
                 if sys.getsizeof(data) <= 0:
                     print("remote car disconnected")
                     self.master_alive = False
@@ -121,7 +129,10 @@ class Slave_connection:
             if not TO_SLAVE_Q.empty():
                 data = TO_SLAVE_Q.get()
                 try:
+                    length = bytes(len(data))
+                    data = struct.pack("H", length) + data
                     self.sock.send(data)
+
                 except Exception as e:
                     print("Error send_to_slave: ")
                     print(e)
@@ -129,7 +140,11 @@ class Slave_connection:
     def receive_from_slave(self):
         while self.slave_alive:
             try:
-                data = self.sock.recv(255)
+                length = self.sock.recv(2)
+                length = struct.unpack("H", length)[0]
+                print("length: ", length)
+
+                data = recvall(self.sock, length)
                 if data <= 0:
                     print("remote car disconnected")
                     self.slave_alive = False
@@ -148,3 +163,17 @@ class Slave_connection:
                 print(e)
                 self.slave_alive = False
                 return
+
+
+def recvall(sock, length):
+    parts = []
+
+    while length > 0:
+        part = sock.recv(length)
+        if not part:
+            raise EOFError('socket closed with %d bytes left in this part'.format(length))
+
+        length -= len(part)
+        parts.append(part)
+
+    return b''.join(parts)
