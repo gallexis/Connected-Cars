@@ -126,7 +126,7 @@ def to_send(sock, queue):
 
 def to_receive(sock, rout_from):
     try:
-        length = sock.recv(2)
+        length = sock.recv(20)
         print("length1: ", length)
 
         length = struct.unpack("<H", length)[0]
