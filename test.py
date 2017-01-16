@@ -1,4 +1,18 @@
-import os
+connection = ["connection_init",
+              ]
 
-print("main_controller thread: terminated");
-print("main_controller thread: terminated")
+driving = ["move_forward",
+           "move_left",
+           ]
+
+alert = ["alert_stop",
+         "alert_warning",
+         ]
+
+message_type = {
+    "alert": alert,
+    "driving": driving,
+    "connection": connection
+}
+
+print(message_type)

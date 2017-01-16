@@ -62,16 +62,19 @@ class Master_connection:
                     print("remote car disconnected")
                     self.master_alive = False
                     return
-                print("1çç")
+
                 msg = CCP.packets.get_message(data)
-                print("2")
+                if msg == None:
+                    print("error decoding received packet... (receive_from_master)")
+                    continue
+
                 msg["from"] = "master"
-                print("3")
+
                 CONTROLLER_IN_Q.put(msg)
-                print("4")
+
 
             except Exception as e:
-                print("error receive_from_master here")
+                print("error receive_from_master")
                 print(e)
                 self.master_alive = False
 
@@ -133,6 +136,10 @@ class Slave_connection:
                     return
 
                 msg = CCP.packets.get_message(data)
+                if msg == None:
+                    print("error decoding received packet... (receive_from_slave)")
+                    continue
+
                 msg["from"] = "slave"
                 CONTROLLER_IN_Q.put(msg)
 

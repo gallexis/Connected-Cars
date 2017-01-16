@@ -3,46 +3,46 @@ try:
 except:
     import pickle
 
+connection = ["connection_init",
+              ]
+
+driving = ['stop',
+           'move_forward',
+           'move_backward',
+           'turn_left',
+           'turn_right',
+           'forward_speed',
+           'backward_speed',
+           'set_angle',
+           'x+',
+           'x-',
+           'y+',
+           'y-',
+           'xy_home',
+           'set_speed',
+           'home',
+           'get_cpu_value',
+           ]
+
+alert = ["alert_stop",
+         "alert_warning",
+         ]
+
 message_type={
-    "alert": 0,
-    "driving": 1,
-    "connection": 2
+    "alert": alert,
+    "driving": driving,
+    "connection": connection
 }
 
-message_order={
-    # ALERT
-    "connection_init":0,
 
-    # DRIVING
-    "move_forward":0,
-    "move_left":1,
+def get_message(binary_data):
+    loaded_message = pickle.loads(binary_data)
+    keys = list(message_type.keys())
 
-    #CONNECTION
-    "alert_stop":0,
-    "alert_warning":1
-}
-
-"""
-    message_type is used to encode a message
-    reversed_message_type i used to decode a message
-
-    i.e:
-        print(message_type["alert"])     == 0
-        print(reversed_message_type[0])  == "alert"
-"""
-reversed_message_type = {v: k for k, v in message_type.items()}
-reversed_message_order = {v: k for k, v in message_order.items()}
-
-
-def get_message(message):
-    loaded_message = pickle.loads(pickle.dumps(message))
-
-    # loaded_message["message_type"] = reversed_message_type[loaded_message["message_type"]]
-    # loaded_message["message_order"] = reversed_message_order[loaded_message["message_order"]]
-    print("toto")
-    print(loaded_message)
-
-    return bytearray(loaded_message)
+    if "message_type" in keys and "message_order" in keys and "args" in keys:
+        return loaded_message
+    else:
+        return None
 
 
 def create_message(**kargs):
@@ -52,10 +52,18 @@ def create_message(**kargs):
     order=   kargs["message_order"]
     args=    kargs["args"]
 
-    return pickle.dumps(
-        {
-            "message_type": message_type[type],
-            "message_order": message_order[order],
-            "args": args
-        }
-    )
+    try:
+        if type in list(message_type.keys()) and order in message_type[type]:
+            return pickle.dumps(
+                {
+                    "message_type": type,
+                    "message_order": order,
+                    "args": args
+                }
+            )
+        else:
+            raise ("Type is not in message_type, or order is not in message_type's array")
+
+    except Exception as e:
+        print(e)
+        return None

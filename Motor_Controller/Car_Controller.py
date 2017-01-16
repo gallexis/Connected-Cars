@@ -17,22 +17,22 @@ class Car_Controller(threading.Thread):
         Motor_Controller.car_dir.home()
 
         self.ctrl_cmd = {
-            '0': Motor_Controller.motor.ctrl(0),  # Stop
-            '1': Motor_Controller.motor.forward,
-            '2': Motor_Controller.motor.backward,
-            '3': Motor_Controller.car_dir.turn_left,
-            '4': Motor_Controller.car_dir.turn_right,
-            '5': lambda args: self.forward_speed(args),
-            '6': lambda args: self.backward_speed(args),
-            '7': lambda args: self.setAngle(args),
-            '8': Motor_Controller.video_dir.move_increase_x,  # X+
-            '9': Motor_Controller.video_dir.move_decrease_x,  # X-
-            '10': Motor_Controller.video_dir.move_increase_y,  # Y+
-            '11': Motor_Controller.video_dir.move_decrease_y,  # Y-
-            '12': Motor_Controller.video_dir.home_x_y,  # home X_Y
-            '13': lambda args: self.setSpeed(args),
-            '14': Motor_Controller.car_dir.home,
-            '15': self.set_cpu_value,
+            'stop': Motor_Controller.motor.ctrl(0),  # Stop
+            'move_forward': Motor_Controller.motor.forward,
+            'move_backward': Motor_Controller.motor.backward,
+            'turn_left': Motor_Controller.car_dir.turn_left,
+            'turn_right': Motor_Controller.car_dir.turn_right,
+            'forward_speed': lambda args: self.forward_speed(args),
+            'backward_speed': lambda args: self.backward_speed(args),
+            'set_angle': lambda args: self.setAngle(args),
+            'x+': Motor_Controller.video_dir.move_increase_x,  # X+
+            'x-': Motor_Controller.video_dir.move_decrease_x,  # X-
+            'y+': Motor_Controller.video_dir.move_increase_y,  # Y+
+            'y-': Motor_Controller.video_dir.move_decrease_y,  # Y-
+            'xy_home': Motor_Controller.video_dir.home_x_y,  # home X_Y
+            'set_speed': lambda args: self.setSpeed(args),
+            'home': Motor_Controller.car_dir.home,
+            'get_cpu_value': self.get_cpu_value,
         }
 
     def run(self):
@@ -76,7 +76,7 @@ class Car_Controller(threading.Thread):
         except:
             print(('Error speed =', speed))
 
-    def set_cpu_value(self):
+    def get_cpu_value(self):
         print('read cpu temp...')
         # temp = cpu_temp.read()
         # tcpCliSock.send('[%s] %0.2f' % (ctime(), temp))
