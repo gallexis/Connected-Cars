@@ -115,6 +115,8 @@ def to_send(sock, queue):
         try:
             length = len(data)
             data = struct.pack("<H", length) + data
+            print("to send:")
+            print(data)
             sock.send(data)
 
         except Exception as e:
@@ -125,8 +127,10 @@ def to_send(sock, queue):
 def to_receive(sock, rout_from):
     try:
         length = sock.recv(2)
+        print("length1: ", length)
+
         length = struct.unpack("<H", length)[0]
-        print("length: ", length)
+        print("length2: ", length)
 
         data = recvall(sock, length)
         if data <= 0:
@@ -150,6 +154,7 @@ def recvall(sock, length):
     parts = []
 
     while length > 0:
+        print("loop")
         part = sock.recv(length)
         if not part:
             raise EOFError('socket closed with %d bytes left in this part'.format(length))
