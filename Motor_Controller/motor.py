@@ -18,15 +18,8 @@ Motor1_B = 15  # pin15
 forward0 = 'True'
 forward1 = 'True'
 
-if forward0 == 'True':
-    backward0 = 'False'
-elif forward0 == 'False':
-    backward0 = 'True'
-
-if forward1 == 'True':
-    backward1 = 'False'
-elif forward1 == 'False':
-    backward1 = 'True'
+backward0 = 'False'
+backward1 = 'False'
 
 
 # ===========================================================================
