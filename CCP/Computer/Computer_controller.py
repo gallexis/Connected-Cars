@@ -12,6 +12,8 @@ class Computer_controller:
 
     def send(self, driving_order, args=None):
         message = packets.create_message("driving", driving_order, args)
+        print("--------")
+        print(driving_order)
         print('computer sends:', message)
         if not message == None:
             connection_manager.to_send(self.sock, message)
@@ -110,16 +112,15 @@ class Computer_controller:
         # Btn10.bind('<ButtonRelease-1>', home_fun)
         # Btn11.bind('<ButtonRelease-1>', home_fun)
 
-        self.ui.bind('<KeyPress-a>',
-                     self.left_fun)  # Press down key 'A' on the keyboard and the car will turn left.
+        self.ui.bind('<KeyPress-q>', self.left_fun)  # Press down key 'A' on the keyboard and the car will turn left.
         self.ui.bind('<KeyPress-d>', self.right_fun)
         self.ui.bind('<KeyPress-s>', self.backward_fun)
-        self.ui.bind('<KeyPress-w>', self.forward_fun)
+        self.ui.bind('<KeyPress-z>', self.forward_fun)
         self.ui.bind('<KeyPress-h>', self.home_fun)
-        self.ui.bind('<KeyRelease-a>', self.home_fun)  # Release key 'A' and the car will turn back.
+        self.ui.bind('<KeyRelease-q>', self.home_fun)  # Release key 'A' and the car will turn back.
         self.ui.bind('<KeyRelease-d>', self.home_fun)
         self.ui.bind('<KeyRelease-s>', self.stop_fun)
-        self.ui.bind('<KeyRelease-w>', self.stop_fun)
+        self.ui.bind('<KeyRelease-z>', self.stop_fun)
 
     def forward_fun(self, event):
         print('forward')
