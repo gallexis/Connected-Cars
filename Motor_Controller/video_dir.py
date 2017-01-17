@@ -22,12 +22,16 @@ def setup():
 
     try:
         for line in open(ROOT_DIR + '/config'):
-            if line[0:8] == 'offset_x':
-                offset_x = int(line[11:-1])
-            # print 'offset_x =', offset_x
-            if line[0:8] == 'offset_y':
-                offset_y = int(line[11:-1])
-            # print 'offset_y =', offset_y
+            s = line.split("=")
+            s0 = s[0].strip()
+            s1 = s[1].strip()
+
+            if s0 == 'offset_x':
+                offset_x = int(s1)
+
+            if s0 == 'offset_y':
+                offset_y = int(s1)
+
     except:
         pass
     Xmin = MinPulse + offset_x

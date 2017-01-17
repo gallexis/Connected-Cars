@@ -63,8 +63,8 @@ def setup():
     try:
         for line in open(ROOT_DIR + "/config"):
             s = line.split("=")
-            s0 = s[0].split()
-            s1 = s[1].split()
+            s0 = s[0].strip()
+            s1 = s[1].strip()
             if s0 == "forward0":
                 forward0 = s1
             if s0 == "forward1":

@@ -30,8 +30,8 @@ def setup():
     try:
         for line in open('config'):
             s = line.split("=")
-            s0 = s[0].split()
-            s1 = s[1].split()
+            s0 = s[0].strip()
+            s1 = s[1].strip()
 
             if s0 == 'offset_x':
                 offset_x = int(s1)
