@@ -173,6 +173,7 @@ class Computer_controller:
         self.send('stop')
         self.sock.close()
         self.ui.quit()
+        sys.exit(0)
 
     def changeSpeed(self, ev=None):
         self.spd = self.speed.get()
