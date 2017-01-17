@@ -5,22 +5,23 @@ import logging
 def main():
     logging.basicConfig(filename='example.log', level=logging.DEBUG)
 
-    # computer
-    if sys.argv[1] == "pc":
-        from CCP.Computer import Computer_controller
-        Computer_controller.Computer_controller()
+    if len(sys.argv) > 1:
 
+        # computer
+        if sys.argv[1] == "pc":
+            from CCP.Computer import Computer_controller
+            Computer_controller.Computer_controller()
 
+        elif sys.argv[1] == "cali-car":
+            import Motor_Controller.calibration_client_car
+            Motor_Controller.calibration_client_car.main()
 
-    elif sys.argv[1] == "cali-car":
-        import Motor_Controller.calibration_client_car
-        Motor_Controller.calibration_client_car.main()
+        elif sys.argv[1] == "cali-pc":
+            import CCP.Computer.calibration_server_computer
+            CCP.Computer.calibration_server_computer.main()
 
-    elif sys.argv[1] == "cali-pc":
-        import CCP.Computer.calibration_server_computer
-        CCP.Computer.calibration_server_computer.main()
-
-
+        else:
+            print("error arg")
     #car
     else:
         from Motor_Controller import Car_Controller
