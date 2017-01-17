@@ -6,12 +6,12 @@ def main():
     logging.basicConfig(filename='example.log', level=logging.DEBUG)
 
     # computer
-    if sys.argv == "pc":
+    if sys.argv[1] == "pc":
         from CCP.Computer import Computer_controller
         Computer_controller.Computer_controller()
 
 
-    elif sys.argv == "cali":
+    elif sys.argv[1] == "cali":
         import Motor_Controller.calibration_client_car
         Motor_Controller.calibration_client_car.main()
 
