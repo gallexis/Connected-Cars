@@ -12,8 +12,6 @@ class Computer_controller:
 
     def send(self, driving_order, args=None):
         message = packets.create_message("driving", driving_order, args)
-        print("--------")
-        print(driving_order)
         print('computer sends:', message)
         if not message == None:
             connection_manager.to_send(self.sock, message)

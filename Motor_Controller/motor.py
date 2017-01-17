@@ -73,7 +73,6 @@ def setup():
 # ===========================================================================
 
 def motor0(x):
-    print("x: ", x)
     if x == 'True':
         GPIO.output(Motor0_A, GPIO.LOW)
         GPIO.output(Motor0_B, GPIO.HIGH)
@@ -85,7 +84,6 @@ def motor0(x):
 
 
 def motor1(x):
-    print("x: ", x)
     if x == 'True':
         GPIO.output(Motor1_A, GPIO.LOW)
         GPIO.output(Motor1_B, GPIO.HIGH)
