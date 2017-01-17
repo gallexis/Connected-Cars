@@ -40,7 +40,7 @@ class Car_Controller(threading.Thread):
             if not TO_MOTORS_Q.empty():
                 order, args = TO_MOTORS_Q.get()
                 try:
-                    if None == args:
+                    if args is None:
                         self.ctrl_cmd[order]()
                     else:
                         self.ctrl_cmd[order](args)

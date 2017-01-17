@@ -14,12 +14,21 @@ class Master_controller:
 
         self.routing()
 
+    def routing(self):
+
+        if self.type == "alert":
+            self.alert_manager()
+        elif self.type == "driving":
+            self.driving_manager()
+        elif self.type == "connection":
+            self.connection_manager()
+        else:
+            print("error routing in Master_controller")
+
     def alert_manager(self):
         pass
 
     def driving_manager(self):
-        # decoded_order = reversed_message_order[self.order]
-
         # send the same driving order to the slave
         TO_SLAVE_Q.put(self.data)
 
@@ -30,12 +39,3 @@ class Master_controller:
     def connection_manager(self):
         pass
 
-    def routing(self):
-        type = message_type[self.type]
-
-        if type == "alert":
-            self.alert_manager()
-        elif type == "driving":
-            self.driving_manager()
-        elif type == "connection":
-            self.connection_manager()
