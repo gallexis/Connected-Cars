@@ -8,7 +8,7 @@ connection = ["connection_init",
 
 driving = ['stop',
            'move_forward',
-           'move_forward',
+           'move_backward',
            'turn_left',
            'turn_right',
            'forward_speed',
