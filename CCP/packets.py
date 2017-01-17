@@ -38,8 +38,6 @@ message_type={
 def get_message(binary_data):
     try:
         loaded_message = pickle.loads(binary_data)
-        print("oyo")
-        print(loaded_message)
         return loaded_message
 
     except Exception as e:

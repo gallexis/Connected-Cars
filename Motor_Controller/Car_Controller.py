@@ -17,7 +17,7 @@ class Car_Controller(threading.Thread):
         Motor_Controller.car_dir.home()
 
         self.ctrl_cmd = {
-            'stop': Motor_Controller.motor.ctrl(0),  # Stop
+            'stop': Motor_Controller.motor.stop,  # Stop
             'move_forward': Motor_Controller.motor.forward,
             'move_backward': Motor_Controller.motor.backward,
             'turn_left': Motor_Controller.car_dir.turn_left,
@@ -50,7 +50,7 @@ class Car_Controller(threading.Thread):
 
     def setSpeed(self, speed):
         spd = int(speed)
-        print(('spd(int) = %d' % spd))
+        print('spd(int) =', spd)
         if spd < 24:
             spd = 24
         Motor_Controller.motor.setSpeed(spd)
@@ -60,21 +60,21 @@ class Car_Controller(threading.Thread):
             angle = int(angle)
             Motor_Controller.car_dir.turn(angle)
         except:
-            print(('Error: angle =', angle))
+            print('Error: angle =', angle)
 
     def forward_speed(self, speed):
         try:
             spd = int(speed)
             Motor_Controller.motor.forwardWithSpeed(spd)
         except:
-            print(('Error speed =', speed))
+            print('Error speed =', speed)
 
     def backward_speed(self, speed):
         try:
             spd = int(speed)
             Motor_Controller.motor.backwardWithSpeed(spd)
         except:
-            print(('Error speed =', speed))
+            print('Error speed =', speed)
 
     def get_cpu_value(self):
         print('read cpu temp...')

@@ -118,8 +118,6 @@ def to_send(sock, data):
     try:
         length = len(data)
         data = struct.pack("<H", length) + data
-        print("to send:")
-        print(data)
         sock.send(data)
 
     except Exception as e:
@@ -137,7 +135,7 @@ def to_receive(sock, rout_from):
             raise ("remote car disconnected")
 
         msg = CCP.packets.get_message(data)
-        print("debug:::")
+        print("debug CCP.packets.get_message:")
         print(msg)
         if msg == None:
             print("error decoding received packet... ")
@@ -157,7 +155,6 @@ def recvall(sock, length):
     parts = []
 
     while length > 0:
-        print("loop")
         part = sock.recv(length)
         if not part:
             raise EOFError('socket closed with %d bytes left in this part'.format(length))
