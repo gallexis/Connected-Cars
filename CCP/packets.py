@@ -55,8 +55,9 @@ def create_message(type, order, args):
                 }
             )
         else:
-            raise ("Type is not in message_type, or order is not in message_type's array")
+            raise ()
 
     except Exception as e:
+        print("Type is not in message_type, or order is not in message_type's array")
         print(e)
         return None

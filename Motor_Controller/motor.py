@@ -60,7 +60,7 @@ def setup():
             s1 = s[1].strip()
             if s0 == "forward0":
                 forward0 = s1
-            if s0 == "forward1":
+            elif s0 == "forward1":
                 forward1 = s1
     except:
         pass
@@ -73,6 +73,8 @@ def setup():
 # ===========================================================================
 
 def motor0(x):
+    print("motor 0 back: ", backward0)
+    print("motor 0 forwd: ", forward0)
     if x == 'True':
         GPIO.output(Motor0_A, GPIO.LOW)
         GPIO.output(Motor0_B, GPIO.HIGH)
@@ -84,6 +86,8 @@ def motor0(x):
 
 
 def motor1(x):
+    print("motor 1 back: ", backward1)
+    print("motor 1 forwd: ", forward1)
     if x == 'True':
         GPIO.output(Motor1_A, GPIO.LOW)
         GPIO.output(Motor1_B, GPIO.HIGH)
