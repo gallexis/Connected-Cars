@@ -29,21 +29,24 @@ def setup():
     forward1 = 'False'
     try:
         for line in open('config'):
-            s = line.strip().split("=")
-            if s[0] == 'offset_x':
-                offset_x = int(s[1])
-                print(('offset_x ='), offset_x)
-            elif s[0] == 'offset_y':
-                offset_y = int(s[1])
-                print(('offset_y ='), offset_y)
-            elif s[0] == 'offset':
-                offset = int(s[1])
+            s = line.split("=")
+            s0 = s[0].split()
+            s1 = s[1].split()
+
+            if s0 == 'offset_x':
+                offset_x = int(s1)
+                print('offset_x =', offset_x)
+            elif s0 == 'offset_y':
+                offset_y = int(s1)
+                print('offset_y =', offset_y)
+            elif s0 == 'offset':
+                offset = int(s1)
                 print('offset =', offset)
-            elif s[0] == "forward0":
-                forward0 = s[1]
+            elif s0 == "forward0":
+                forward0 = s1
                 print('turning0 =', forward0)
-            elif s[0] == "forward1":
-                forward1 = s[1]
+            elif s0 == "forward1":
+                forward1 = s1
                 print('turning1 =', forward1)
     except:
         print('no config file, set config to original')

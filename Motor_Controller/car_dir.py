@@ -16,8 +16,12 @@ def setup():
     offset = 0
     try:
         for line in open(ROOT_DIR + '/config'):
-            if line[0:8] == 'offset =':
-                offset = int(line[9:-1])
+            s = line.split("=")
+            s0 = s[0].split()
+            s1 = s[1].split()
+
+            if s0 == 'offset':
+                offset = int(s1)
     except:
         print('config error')
     leftPWM += offset

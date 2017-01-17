@@ -62,10 +62,13 @@ def setup():
 
     try:
         for line in open(ROOT_DIR + "/config"):
-            if line[0:8] == "forward0":
-                forward0 = line[11:-1]
-            if line[0:8] == "forward1":
-                forward1 = line[11:-1]
+            s = line.split("=")
+            s0 = s[0].split()
+            s1 = s[1].split()
+            if s0 == "forward0":
+                forward0 = s1
+            if s0 == "forward1":
+                forward1 = s1
     except:
         pass
 
