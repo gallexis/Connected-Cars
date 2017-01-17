@@ -57,9 +57,8 @@ class Master_connection:
 
     def receive_from_master(self):
         while self.master_alive:
-            print(self.master_alive)
             self.master_alive = to_receive(self.sock, "master")
-
+            print(self.master_alive)
 
 ##########
 # SLAVE
@@ -146,6 +145,7 @@ def to_receive(sock, rout_from):
 
         msg["from"] = rout_from
         CONTROLLER_IN_Q.put(msg)
+        return True
 
     except Exception as e:
         print("error to_receive")
