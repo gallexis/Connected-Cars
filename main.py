@@ -6,9 +6,15 @@ def main():
     logging.basicConfig(filename='example.log', level=logging.DEBUG)
 
     # computer
-    if len(sys.argv) > 1:
+    if sys.argv == "pc":
         from CCP.Computer import Computer_controller
         Computer_controller.Computer_controller()
+
+
+    elif sys.argv == "cali":
+        import Motor_Controller.calibration_client_car
+        Motor_Controller.calibration_client_car.main()
+
 
     #car
     else:
