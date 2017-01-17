@@ -127,7 +127,7 @@ class Computer_controller:
 
     def backward_fun(self, event):
         print('backward')
-        self.send("'move_forward'")
+        self.send("move_backward")
 
     def left_fun(self, event):
         print('left')

@@ -18,7 +18,6 @@ except Exception as e:
     print("Error connection to server: ", e)
     sys.exit(1)
 
-
 # connections are full, others will be rejected.
 def setup():
     global offset_x, offset_y, offset, forward0, forward1
@@ -58,13 +57,11 @@ def setup():
     video_dir.calibrate(offset_x, offset_y)
     car_dir.calibrate(offset)
 
-
 def REVERSE(x):
     if x == 'True':
         return 'False'
     elif x == 'False':
         return 'True'
-
 
 def loop():
     global offset_x, offset_y, offset, forward0, forward1
@@ -79,7 +76,6 @@ def loop():
                     return
 
                 data = data.decode("utf-8")
-
 
             except Exception as e:
                 print("Error received data from server: ", e)
