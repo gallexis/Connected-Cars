@@ -95,7 +95,7 @@ def motor1(x):
         GPIO.output(Motor1_A, GPIO.HIGH)
         GPIO.output(Motor1_B, GPIO.LOW)
     else:
-        print('Config Error')
+        print('Config Error ')
 
 def forward():
     motor0(forward0)
