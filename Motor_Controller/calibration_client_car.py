@@ -15,7 +15,7 @@ tcpSerSock = socket(AF_INET, SOCK_STREAM)
 try:
     tcpSerSock.connect((IP, PORT))
 except Exception as e:
-    print("Error connection to server: ", e)
+    print(" Error connection to server: ", e)
     sys.exit(1)
 
 
