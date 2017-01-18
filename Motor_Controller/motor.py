@@ -82,7 +82,7 @@ def motor0(x):
         GPIO.output(Motor0_A, GPIO.HIGH)
         GPIO.output(Motor0_B, GPIO.LOW)
     else:
-        print('Config Error')
+        print('Config Error ')
 
 
 def motor1(x):
