@@ -62,6 +62,10 @@ def setup():
                 forward0 = s1
             elif s0 == "forward1":
                 forward1 = s1
+            if s0 == "backward0":
+                backward0 = s1
+            elif s0 == "backward1":
+                backward1 = s1
     except:
         pass
 
