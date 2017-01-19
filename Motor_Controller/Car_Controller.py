@@ -5,6 +5,7 @@ import Motor_Controller.car_dir
 import Motor_Controller.motor
 from Main_Controller.global_queues import *
 
+offset = 0
 
 class Car_Controller(threading.Thread):
     def __init__(self):
@@ -22,6 +23,8 @@ class Car_Controller(threading.Thread):
             'move_backward': Motor_Controller.motor.backward,
             'turn_left': Motor_Controller.car_dir.turn_left,
             'turn_right': Motor_Controller.car_dir.turn_right,
+            'fine_turn_left': self.fine_turn_left(),
+            'fine_turn_right': self.fine_turn_right(),
             'forward_speed': lambda args: self.forward_speed(args),
             'backward_speed': lambda args: self.backward_speed(args),
             'set_angle': lambda args: self.setAngle(args),
@@ -57,6 +60,17 @@ class Car_Controller(threading.Thread):
         if spd < 24:
             spd = 24
         Motor_Controller.motor.setSpeed(spd)
+
+    def fine_turn_left(self):
+        global offset
+        offset -= 1
+        Motor_Controller.car_dir.calibrate(offset)
+
+    def fine_turn_right(self):
+        global offset
+        offset += 1
+        Motor_Controller.car_dir.calibrate(offset)
+
 
     def setAngle(self, angle):
         try:

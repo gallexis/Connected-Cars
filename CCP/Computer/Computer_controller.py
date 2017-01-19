@@ -130,11 +130,11 @@ class Computer_controller:
 
     def left_fun(self, event):
         print('left')
-        self.send("turn_left")
+        self.send("fine_turn_left")
 
     def right_fun(self, event):
         print('right')
-        self.send("turn_right")
+        self.send("fine_turn_right")
 
     def stop_fun(self, event):
         print('stop')
