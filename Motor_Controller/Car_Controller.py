@@ -23,8 +23,8 @@ class Car_Controller(threading.Thread):
             'move_backward': Motor_Controller.motor.backward,
             #'turn_left': Motor_Controller.car_dir.turn_left,
             #'turn_right': Motor_Controller.car_dir.turn_right,
-            'turn_left': self.fine_turn_left(),
-            'turn_right': self.fine_turn_right(),
+            'turn_left': self.fine_turn_left,
+            'turn_right': self.fine_turn_right,
             'forward_speed': lambda args: self.forward_speed(args),
             'backward_speed': lambda args: self.backward_speed(args),
             'set_angle': lambda args: self.setAngle(args),
@@ -41,8 +41,8 @@ class Car_Controller(threading.Thread):
     def run(self):
         TO_MOTORS_Q_empty = TO_MOTORS_Q.empty
         TO_MOTORS_Q_get = TO_MOTORS_Q.get
-        print("msg: ", TO_MOTORS_Q_get)
         while True:
+            print("msg: ", TO_MOTORS_Q_get)
             if not TO_MOTORS_Q_empty():
                 order, args = TO_MOTORS_Q_get()
                 try:
