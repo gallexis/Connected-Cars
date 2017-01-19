@@ -97,7 +97,7 @@ else
     ifconfig $1 192.168.1.1 netmask 255.255.255.0 up
 
     echo "Ad-hoc network created"
-    python3 main.py computer
+    python3 main.py pc
 fi
 
 

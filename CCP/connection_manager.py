@@ -49,16 +49,19 @@ class Master_connection:
         return sock
 
     def send_to_master(self):
+        TO_MASTER_Q_empty = TO_MASTER_Q.empty
+        TO_MASTER_Q_get = TO_MASTER_Q.get
+
         while self.master_alive:
-            if not TO_MASTER_Q.empty():
-                data = TO_MASTER_Q.get()
+            if not TO_MASTER_Q_empty():
+                data = TO_MASTER_Q_get()
                 to_send(self.sock, data)
 
 
     def receive_from_master(self):
         while self.master_alive:
             self.master_alive = to_receive(self.sock, "master")
-            print(self.master_alive)
+
 
 ##########
 # SLAVE
@@ -101,9 +104,12 @@ class Slave_connection:
         return car_sock
 
     def send_to_slave(self):
+        TO_SLAVE_Q_empty = TO_SLAVE_Q.empty
+        TO_SLAVE_Q_get = TO_SLAVE_Q.get
+
         while self.slave_alive:
-            if not TO_SLAVE_Q.empty():
-                data = TO_SLAVE_Q.get()
+            if not TO_SLAVE_Q_empty():
+                data = TO_SLAVE_Q_get()
                 to_send(self.sock, data)
 
     def receive_from_slave(self):
@@ -153,13 +159,15 @@ def to_receive(sock, rout_from):
 
 def recvall(sock, length):
     parts = []
+    recv = sock.recv
+    append = parts.append
 
     while length > 0:
-        part = sock.recv(length)
+        part = recv(length)
         if not part:
             raise EOFError('socket closed with %d bytes left in this part'.format(length))
 
         length -= len(part)
-        parts.append(part)
+        append(part)
 
     return b''.join(parts)
