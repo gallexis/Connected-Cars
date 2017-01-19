@@ -18,6 +18,7 @@ class Car_Controller(threading.Thread):
         Motor_Controller.car_dir.home()
 
         self.offset = 0
+        self.turn_pas=3
         self.ctrl_cmd = {
             'stop': Motor_Controller.motor.stop,  # Stop
             'move_forward': Motor_Controller.motor.forward,
@@ -62,11 +63,11 @@ class Car_Controller(threading.Thread):
         Motor_Controller.motor.setSpeed(spd)
 
     def fine_turn_left(self):
-        self.offset -= 1
+        self.offset -= int(self.turn_pas)
         Motor_Controller.car_dir.calibrate(int(self.offset))
 
     def fine_turn_right(self):
-        self.offset += 1
+        self.offset += int(self.turn_pas)
         Motor_Controller.car_dir.calibrate(int(self.offset))
 
 
