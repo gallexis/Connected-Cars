@@ -158,6 +158,7 @@ def test():
 if __name__ == '__main__':
     setup()
     setSpeed(50)
+    motor1(forward1)
     # forward()
     # backward()
     stop()
