@@ -61,12 +61,12 @@ class Car_Controller(threading.Thread):
             spd = 24
         Motor_Controller.motor.setSpeed(spd)
 
-    def fine_turn_left(self):
+    def fine_turn_left(self, val):
         global offset
         offset -= 1
         Motor_Controller.car_dir.calibrate(int(offset))
 
-    def fine_turn_right(self):
+    def fine_turn_right(self, val):
         global offset
         offset += 1
         Motor_Controller.car_dir.calibrate(int(offset))
