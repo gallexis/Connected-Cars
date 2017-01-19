@@ -124,8 +124,9 @@ def backwardWithSpeed(spd=50):
 
 
 def stop():
+    GPIO_output = GPIO.output
     for pin in pins:
-        GPIO.output(pin, GPIO.LOW)
+        GPIO_output(pin, GPIO.LOW)
 
 
 # ===========================================================================
