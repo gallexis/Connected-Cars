@@ -5,7 +5,6 @@ import Motor_Controller.car_dir
 import Motor_Controller.motor
 from Main_Controller.global_queues import *
 
-global offset
 offset = 0
 
 class Car_Controller(threading.Thread):
@@ -63,10 +62,12 @@ class Car_Controller(threading.Thread):
         Motor_Controller.motor.setSpeed(spd)
 
     def fine_turn_left(self):
+        global offset
         offset -= 1
         Motor_Controller.car_dir.calibrate(int(offset))
 
     def fine_turn_right(self):
+        global offset
         offset += 1
         Motor_Controller.car_dir.calibrate(int(offset))
 
