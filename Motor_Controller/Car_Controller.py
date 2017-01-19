@@ -7,10 +7,9 @@ from Main_Controller.global_queues import *
 
 class Car_Controller(threading.Thread):
 
-    offset = 0
-
     def __init__(self):
         threading.Thread.__init__(self)
+
 
         Motor_Controller.video_dir.setup()
         Motor_Controller.car_dir.setup()
@@ -18,6 +17,7 @@ class Car_Controller(threading.Thread):
         Motor_Controller.video_dir.home_x_y()
         Motor_Controller.car_dir.home()
 
+        self.offset = 0
         self.ctrl_cmd = {
             'stop': Motor_Controller.motor.stop,  # Stop
             'move_forward': Motor_Controller.motor.forward,
