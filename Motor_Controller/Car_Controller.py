@@ -41,7 +41,7 @@ class Car_Controller(threading.Thread):
     def run(self):
         TO_MOTORS_Q_empty = TO_MOTORS_Q.empty
         TO_MOTORS_Q_get = TO_MOTORS_Q.get
-
+        print("msg: ", TO_MOTORS_Q_get)
         while True:
             if not TO_MOTORS_Q_empty():
                 order, args = TO_MOTORS_Q_get()
