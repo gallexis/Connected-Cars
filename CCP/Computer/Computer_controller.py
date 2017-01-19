@@ -115,10 +115,10 @@ class Computer_controller:
         self.ui.bind('<KeyPress-s>', self.backward_fun)
         self.ui.bind('<KeyPress-z>', self.forward_fun)
         self.ui.bind('<KeyPress-h>', self.home_fun)
-        self.ui.bind('<KeyRelease-q>', self.home_fun)  # Release key 'A' and the car will turn back.
-        self.ui.bind('<KeyRelease-d>', self.home_fun)
-        self.ui.bind('<KeyRelease-s>', self.stop_fun)
-        self.ui.bind('<KeyRelease-z>', self.stop_fun)
+        self.ui.bind('<KeyRelease-z>', self.home_fun)  # Release key 'A' and the car will turn back.
+        self.ui.bind('<KeyRelease-s>', self.home_fun)
+        self.ui.bind('<KeyRelease-q>', self.stop_fun)
+        self.ui.bind('<KeyRelease-d>', self.stop_fun)
 
     def forward_fun(self, event):
         print('forward')
