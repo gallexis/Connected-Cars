@@ -42,7 +42,6 @@ class Car_Controller(threading.Thread):
         TO_MOTORS_Q_empty = TO_MOTORS_Q.empty
         TO_MOTORS_Q_get = TO_MOTORS_Q.get
         while True:
-            print("msg: ", TO_MOTORS_Q_get)
             if not TO_MOTORS_Q_empty():
                 order, args = TO_MOTORS_Q_get()
                 try:
