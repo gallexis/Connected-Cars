@@ -33,7 +33,7 @@ class Master_controller:
         TO_SLAVE_Q.put(self.data)
 
         # send the order "move_forward" to the motors
-        TO_MOTORS_Q.put((self.order, self.args))
+        #TO_MOTORS_Q.put((self.order, self.args))
 
 
     def connection_manager(self):
