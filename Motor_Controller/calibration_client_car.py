@@ -167,6 +167,8 @@ def loop():
 
             # ----------Confirm--------------------
             elif data == 'confirm':
+                ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
+
                 config = 'offset_x = %s\noffset_y = %s\noffset = %s\nforward0 = %s\nforward1 = %s\n ' % (
                     offset_x, offset_y, offset, forward0, forward1)
                 print('')
@@ -176,7 +178,7 @@ def loop():
                 print(config)
                 print('*********************************')
                 print('')
-                fd = open('config', 'w')
+                fd = open(ROOT_DIR+'/config', 'w')
                 fd.write(config)
                 fd.close()
 
