@@ -141,8 +141,8 @@ def to_receive(sock, rout_from):
             raise ("remote car disconnected")
 
         msg = CCP.packets.get_message(data)
-        print("debug CCP.packets.get_message:")
-        print(msg)
+        #print("debug CCP.packets.get_message:")
+        #print(msg)
         if msg == None:
             print("error decoding received packet... ")
             return True
