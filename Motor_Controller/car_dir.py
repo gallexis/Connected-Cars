@@ -15,7 +15,11 @@ def setup():
     rightPWM = 500
     offset = 0
     try:
-        for line in open(ROOT_DIR + '/config'):
+        for l in open(ROOT_DIR + '/config'):
+            line = l.strip()
+            if line is "":
+                continue
+
             s = line.split("=")
             s0 = s[0].strip()
             s1 = s[1].strip()
@@ -23,7 +27,7 @@ def setup():
             if s0 == 'offset':
                 offset = int(s1)
     except Exception as e:
-        print('config error')
+        print('config error setup (car_dir)')
         print(e)
     leftPWM += offset
     homePWM += offset

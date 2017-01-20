@@ -169,7 +169,7 @@ def loop():
             elif data == 'confirm':
                 ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
 
-                config = 'offset_x = %s\noffset_y = %s\noffset = %s\nforward0 = %s\nforward1 = %s\n ' % (
+                config = 'offset_x = %s\noffset_y = %s\noffset = %s\nforward0 = %s\nforward1 = %s' % (
                     offset_x, offset_y, offset, forward0, forward1)
                 print('')
                 print('*********************************')
