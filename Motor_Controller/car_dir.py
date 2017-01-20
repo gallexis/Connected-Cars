@@ -22,8 +22,9 @@ def setup():
 
             if s0 == 'offset':
                 offset = int(s1)
-    except:
+    except Exception as e:
         print('config error')
+        print(e)
     leftPWM += offset
     homePWM += offset
     rightPWM += offset
