@@ -41,19 +41,17 @@ class Car_Controller(threading.Thread):
         }
 
     def run(self):
-        TO_MOTORS_Q_empty = TO_MOTORS_Q.empty
         TO_MOTORS_Q_get = TO_MOTORS_Q.get
         while True:
-            if not TO_MOTORS_Q_empty():
-                order, args = TO_MOTORS_Q_get()
-                try:
-                    if args is None:
-                        self.ctrl_cmd[order]()
-                    else:
-                        self.ctrl_cmd[order](args)
-                except Exception as e:
-                    print("Error motor order:")
-                    print(e)
+            order, args = TO_MOTORS_Q_get()
+            try:
+                if args is None:
+                    self.ctrl_cmd[order]()
+                else:
+                    self.ctrl_cmd[order](args)
+            except Exception as e:
+                print("Error motor order:")
+                print(e)
 
     def setSpeed(self, speed):
         spd = int(speed)

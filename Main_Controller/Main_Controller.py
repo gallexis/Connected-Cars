@@ -13,13 +13,11 @@ class Main_Controller(threading.Thread):
         # self.camera_controller = Camera_controller.Camera_controller()
 
     def run(self):
-        CONTROLLER_IN_Q_empty = CONTROLLER_IN_Q.empty
         CONTROLLER_IN_Q_get = CONTROLLER_IN_Q.get
 
         while True:
-            if not CONTROLLER_IN_Q_empty():
-                data = CONTROLLER_IN_Q_get()
-                self.routing(data)
+            data = CONTROLLER_IN_Q_get()
+            self.routing(data)
 
     def routing(self, data):
         message_from = data["from"]

@@ -1,18 +1,10 @@
-connection = ["connection_init",
-              ]
+import queue
 
-driving = ["move_forward",
-           "move_left",
-           ]
+a = queue.Queue()
+a.put("aaaaa")
+while True:
+    print("yooo")
 
-alert = ["alert_stop",
-         "alert_warning",
-         ]
-
-message_type = {
-    "alert": alert,
-    "driving": driving,
-    "connection": connection
-}
-
-print(message_type)
+    print("ga")
+    data = a.get()
+    print(data)

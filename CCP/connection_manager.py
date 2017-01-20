@@ -49,13 +49,11 @@ class Master_connection:
         return sock
 
     def send_to_master(self):
-        TO_MASTER_Q_empty = TO_MASTER_Q.empty
         TO_MASTER_Q_get = TO_MASTER_Q.get
 
         while self.master_alive:
-            if not TO_MASTER_Q_empty():
-                data = TO_MASTER_Q_get()
-                to_send(self.sock, data)
+            data = TO_MASTER_Q_get()
+            to_send(self.sock, data)
 
 
     def receive_from_master(self):
@@ -104,13 +102,11 @@ class Slave_connection:
         return car_sock
 
     def send_to_slave(self):
-        TO_SLAVE_Q_empty = TO_SLAVE_Q.empty
         TO_SLAVE_Q_get = TO_SLAVE_Q.get
 
         while self.slave_alive:
-            if not TO_SLAVE_Q_empty():
-                data = TO_SLAVE_Q_get()
-                to_send(self.sock, data)
+            data = TO_SLAVE_Q_get()
+            to_send(self.sock, data)
 
     def receive_from_slave(self):
         while self.slave_alive:
