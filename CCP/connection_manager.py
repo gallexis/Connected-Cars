@@ -37,7 +37,7 @@ class Master_connection:
             try:
                 print("Connection to master...")
                 sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-                sock.bind(("192.168.43.41", 0))
+                sock.bind(("192.168.43.3", 0))
                 sock.connect(("192.168.43.202", 3000))
                 print("Connected to master")
                 break
