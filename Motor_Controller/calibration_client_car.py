@@ -2,7 +2,7 @@ import RPi.GPIO as GPIO
 import Motor_Controller.video_dir
 import Motor_Controller.car_dir
 import Motor_Controller.motor
-import sys
+import os,sys
 from socket import *
 from time import ctime
 
