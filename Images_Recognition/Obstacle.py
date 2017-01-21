@@ -41,8 +41,8 @@ while True:
     if compteur_N > 100 :
         print 'Obstacle'
 
-    cv2.imshow('video test',im)
-    cv2.imshow('video test 2', th)
+    cv2.imshow('My camera',im)
+    cv2.imshow('Binary camera', th)
     
     if cv2.waitKey(1) & 0xFF == ord('q'):
         cv2.destroyAllWindows()
