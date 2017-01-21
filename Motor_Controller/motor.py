@@ -1,4 +1,6 @@
 import RPi.GPIO as GPIO
+import logging
+
 import Motor_Controller.PCA9685 as pwm
 import time  # Import necessary modules
 import os
@@ -44,7 +46,7 @@ p.set_frequency(60)
 # ===========================================================================
 def setSpeed(speed):
     speed *= 40
-    print(('speed is: ', speed))
+    logging.debug('speed is: ' + str(speed))
     p.set_value(EN_M0, 0, speed)
     p.set_value(EN_M1, 0, speed)
 
@@ -84,7 +86,7 @@ def motor0(x):
         GPIO.output(Motor0_A, GPIO.HIGH)
         GPIO.output(Motor0_B, GPIO.LOW)
     else:
-        print('Config Error (motor0)')
+        logging.warning('Config Error (motor0)')
 
 
 def motor1(x):
@@ -95,7 +97,7 @@ def motor1(x):
         GPIO.output(Motor1_A, GPIO.HIGH)
         GPIO.output(Motor1_B, GPIO.LOW)
     else:
-        print('Config Error (motor1)')
+        logging.warning('Config Error (motor1)')
 
 def forward():
     motor0(forward0)
@@ -137,11 +139,11 @@ def ctrl(status, direction=1):
         elif direction == -1:  # Backward
             backward()
         else:
-            print('Argument error! direction must be 1 or -1.')
+            logging.warning('Argument error! direction must be 1 or -1.')
     elif status == 0:  # Stop
         stop()
     else:
-        print('Argument error! status must be 0 or 1.')
+        logging.warning('Argument error! status must be 0 or 1.')
 
 
 def test():

@@ -1,3 +1,4 @@
+import logging
 import smbus
 import time
 import math
@@ -43,16 +44,16 @@ class PWM(object):
 
     def __init__(self, bus_number=None, address=0x40):
         if self._DEBUG:
-            print((self._DEBUG_INFO, "Debug on"))
+            logging.debug(self._DEBUG_INFO + "Debug on")
         self.address = address
         if bus_number == None:
             self.bus_number = self._get_bus_number()
         else:
             self.bus_number = bus_number
-        print (self.bus_number)
+        logging.debug(self.bus_number)
         self.bus = smbus.SMBus(self.bus_number)
         if self._DEBUG:
-            print((self._DEBUG_INFO, 'Reseting PCA9685 MODE1 (without SLEEP) and MODE2'))
+            logging.debug(self._DEBUG_INFO + 'Reseting PCA9685 MODE1 (without SLEEP) and MODE2')
         self.set_all_value(0, 0)
         self._write_byte_data(self._MODE2, self._OUTDRV)
         self._write_byte_data(self._MODE1, self._ALLCALL)
@@ -65,7 +66,7 @@ class PWM(object):
 
     def _write_byte_data(self, reg, value):
         if self._DEBUG:
-            print((self._DEBUG_INFO, 'Writing value %2X to %2X' % (value, reg)))
+            logging.debug(self._DEBUG_INFO + 'Writing value:' + str((value, reg)))
         self.bus.write_byte_data(self.address, reg, value)
 
     def _read_byte_data(self, reg):

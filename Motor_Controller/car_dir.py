@@ -1,3 +1,5 @@
+import logging
+
 import Motor_Controller.PCA9685 as servo
 import time  # Import necessary modules
 import os
@@ -27,8 +29,8 @@ def setup():
             if s0 == 'offset':
                 offset = int(s1)
     except Exception as e:
-        print('config error setup (car_dir)')
-        print(e)
+        logging.warning('Config error setup (car_dir): ' + e.__str__())
+
     leftPWM += offset
     homePWM += offset
     rightPWM += offset

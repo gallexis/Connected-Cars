@@ -1,7 +1,6 @@
 from Main_Controller.global_queues import *
 from CCP.packets import *
 
-
 class Slave_controller:
     def __init__(self):
         pass
@@ -21,8 +20,7 @@ class Slave_controller:
         elif self.type == "connection":
             self.connection_manager()
         else:
-            print("error routing in Slave_controller")
-
+            logging.warning("Error routing in Slave_controller")
 
     def alert_manager(self):
         pass

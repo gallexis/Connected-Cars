@@ -1,10 +1,5 @@
-import queue
+import logging
 
-a = queue.Queue()
-a.put("aaaaa")
-while True:
-    print("yooo")
+logging.basicConfig(level=logging.DEBUG)  # info - debug - warning
 
-    print("ga")
-    data = a.get()
-    print(data)
+print(str(("yoo", 3)))

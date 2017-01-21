@@ -1,5 +1,7 @@
 import threading
 
+import logging
+
 from Main_Controller.global_queues import *
 from Main_Controller.sub_controllers import Master_controller, Slave_controller  # ,Camera_controller
 
@@ -30,4 +32,4 @@ class Main_Controller(threading.Thread):
             #self.camera_controller.handle_message(data)
             pass
         else:
-            print("Unknown destination")
+            logging.warning("Unknown destination")

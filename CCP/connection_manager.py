@@ -3,6 +3,7 @@ import time
 import _thread
 import struct
 
+import logging
 
 import CCP.packets
 from Main_Controller.global_queues import *
@@ -17,7 +18,7 @@ class Master_connection:
     def __init__(self):
         self.sock = self.connect_to_master()
         if self.sock == None:
-            print("sock == none, cannot connect to master.")
+            logging.warning("sock == none, cannot connect to master.")
             return
 
         self.master_alive = True
@@ -25,8 +26,8 @@ class Master_connection:
         try:
             _thread.start_new_thread(self.receive_from_master, ())
             _thread.start_new_thread(self.send_to_master, ())
-        except:
-            print("Error: unable to start Master_connection's thread")
+        except Exception as e:
+            logging.warning("Error: unable to start Master_connection's thread: " + e.__str__())
 
 
     def connect_to_master(self):
@@ -35,15 +36,15 @@ class Master_connection:
 
         while connected > 0:
             try:
-                print("Connection to master...")
+                logging.info("Connection to master...")
                 sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
                 sock.bind(("192.168.43.3", 0))
                 sock.connect(("192.168.43.202", 3000))
-                print("Connected to master")
+                logging.info("Connected to master")
                 break
             except:
                 connected -= 1
-                print("Error master connection")
+                logging.warning("Error master connection")
                 time.sleep(4)
 
         return sock
@@ -68,7 +69,7 @@ class Slave_connection:
     def __init__(self):
         self.sock = self.wait_for_slave_connection()
         if self.sock == None:
-            print("sock == none, cannot connect to slave.")
+            logging.warning("sock == none, cannot connect to slave.")
             return
 
         self.slave_alive = True
@@ -76,8 +77,8 @@ class Slave_connection:
         try:
             _thread.start_new_thread(self.receive_from_slave, ())
             _thread.start_new_thread(self.send_to_slave, ())
-        except:
-            print("Error: unable to start Slave_connection's thread")
+        except Exception as e:
+            logging.warning("Error: unable to start Slave_connection's thread" + e.__str__())
 
     def wait_for_slave_connection(self):
         connected = False
@@ -91,11 +92,11 @@ class Slave_connection:
 
         while not connected and tries > 0:
             try:
-                print("waiting for incoming slave car connection...")
+                logging.info("Waiting for incoming slave car connection...")
                 car_sock, _ = sock.accept()
                 connected = True
             except:
-                print("Error slave connection")
+                logging.info("Error slave connection")
                 tries -= 1
                 time.sleep(4)
 
@@ -123,8 +124,7 @@ def to_send(sock, data):
         sock.send(data)
 
     except Exception as e:
-        print("Error to_send: ")
-        print(e)
+        logging.warning("Error to_send: " + e.__str__())
 
 
 def to_receive(sock, rout_from):
@@ -140,7 +140,7 @@ def to_receive(sock, rout_from):
         #print("debug CCP.packets.get_message:")
         #print(msg)
         if msg == None:
-            print("error decoding received packet... ")
+            logging.warning("Error decoding received packet... ")
             return True
 
         msg["from"] = rout_from
@@ -148,8 +148,7 @@ def to_receive(sock, rout_from):
         return True
 
     except Exception as e:
-        print("error to_receive")
-        print(e)
+        logging.warning("Error to_receive:" + e.__str__())
         return False
 
 
@@ -161,7 +160,7 @@ def recvall(sock, length):
     while length > 0:
         part = recv(length)
         if not part:
-            raise EOFError('socket closed with %d bytes left in this part'.format(length))
+            raise EOFError('Socket closed with %d bytes left in this part'.format(length))
 
         length -= len(part)
         append(part)

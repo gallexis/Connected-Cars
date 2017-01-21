@@ -1,3 +1,5 @@
+import logging
+
 try:
     import cPickle as pickle
 except:
@@ -41,7 +43,7 @@ def get_message(binary_data):
         return loaded_message
 
     except Exception as e:
-        print(e)
+        logging.warning("Error get_message: " + e.__str__())
         return None
 
 def create_message(type, order, args):
@@ -58,6 +60,5 @@ def create_message(type, order, args):
             raise ()
 
     except Exception as e:
-        print("Type is not in message_type, or order is not in message_type's array")
-        print(e)
+        logging.warning("Type is not in message_type, or order is not in message_type's array " + e.__str__())
         return None

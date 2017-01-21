@@ -1,3 +1,5 @@
+import logging
+
 from CCP import packets, connection_manager
 from tkinter import *
 from socket import *
@@ -12,7 +14,7 @@ class Computer_controller:
 
     def send(self, driving_order, args=None):
         message = packets.create_message("driving", driving_order, args)
-        print('computer sends:', message)
+        logging.debug('Computer sends:' + str(message))
         if not message == None:
             connection_manager.to_send(self.sock, message)
 
@@ -24,13 +26,13 @@ class Computer_controller:
         sock.listen(5)
 
         while True:
-            print("Waiting for car...")
+            logging.info("Waiting for new car...")
             self.sock, address = sock.accept()
 
-            print("Car {} connected".format(address))
+            logging.info("Car {} connected".format(address))
             # We start the UI when the car is connected
             self.start_ui()
-            print("UI exited")
+            logging.info("UI exited")
 
     def start_ui(self):
         self.spd = 50
@@ -121,49 +123,49 @@ class Computer_controller:
         self.ui.bind('<KeyRelease-d>', self.home_fun)
 
     def forward_fun(self, event):
-        print('forward')
+        logging.info('forward')
         self.send("move_forward")
 
     def backward_fun(self, event):
-        print('backward')
+        logging.info('backward')
         self.send("move_backward")
 
     def left_fun(self, event):
-        print('left')
+        logging.info('left')
         self.send("turn_left")
         #self.send("home")
 
     def right_fun(self, event):
-        print('right')
+        logging.info('right')
         self.send("turn_right")
         #self.send("home")
 
     def stop_fun(self, event):
-        print('stop')
+        logging.info('stop')
         self.send("stop")
 
     def home_fun(self, event):
-        print('home')
+        logging.info('home')
         self.send("home")
 
     def x_increase(self, event):
-        print('x+')
+        logging.info('x+')
         self.send("x+")
 
     def x_decrease(self, event):
-        print('x-')
+        logging.info('x-')
         self.send("x-")
 
     def y_increase(self, event):
-        print('y+')
+        logging.info('y+')
         self.send("y+")
 
     def y_decrease(self, event):
-        print('y-')
+        logging.info('y-')
         self.send("y-")
 
     def xy_home(self, event):
-        print('xy_home')
+        logging.info('xy_home')
         self.send("xy_home")
 
     # =============================================================================
@@ -178,6 +180,5 @@ class Computer_controller:
 
     def changeSpeed(self, ev=None):
         self.spd = self.speed.get()
-        data = 'speed ' + str(self.spd)  # Change the integers into strings and combine them with the string 'speed'.
-        print('sendData = %s' % data)
+        logging.debug('set_speed: ' + str(self.spd))
         self.send("set_speed", self.spd)  # Send the speed data to the server(Raspberry Pi)

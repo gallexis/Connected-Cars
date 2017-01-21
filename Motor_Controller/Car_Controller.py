@@ -1,5 +1,7 @@
 import threading
 
+import logging
+
 import Motor_Controller.video_dir
 import Motor_Controller.car_dir
 import Motor_Controller.motor
@@ -50,12 +52,11 @@ class Car_Controller(threading.Thread):
                 else:
                     self.ctrl_cmd[order](args)
             except Exception as e:
-                print("Error motor order:")
-                print(e)
+                logging.warning("Error motor order: " + e.__str__())
 
     def setSpeed(self, speed):
         spd = int(speed)
-        print('spd(int) =', spd)
+        logging.debug('spd(int) =', spd)
         if spd < 24:
             spd = 24
         Motor_Controller.motor.setSpeed(spd)
@@ -73,24 +74,25 @@ class Car_Controller(threading.Thread):
         try:
             angle = int(angle)
             Motor_Controller.car_dir.turn(angle)
-        except:
-            print('Error: angle =', angle)
+        except Exception as e:
+            logging.warning('Error angle: ' + e.__str__())
 
     def forward_speed(self, speed):
         try:
             spd = int(speed)
             Motor_Controller.motor.forwardWithSpeed(spd)
-        except:
-            print('Error speed =', speed)
+        except Exception as e:
+            logging.warning('Error forward_speed: ' + e.__str__())
+
 
     def backward_speed(self, speed):
         try:
             spd = int(speed)
             Motor_Controller.motor.backwardWithSpeed(spd)
-        except:
-            print('Error speed =', speed)
+        except Exception as e:
+            logging.warning('Error backward_speed: ' + e.__str__())
 
     def get_cpu_value(self):
-        print('read cpu temp...')
+        logging.debug('read cpu temp...')
         # temp = cpu_temp.read()
         # tcpCliSock.send('[%s] %0.2f' % (ctime(), temp))

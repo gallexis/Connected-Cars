@@ -50,10 +50,6 @@ Ex:
 caméra -> image_rec -> danger -> controller::dispatcher -> controller::image_camera -> CCP::broadcast to master and slave AND motor::stop
 
 
-
-## Remplacer tous les "print" par des "logging"
-
-
 ## start script on boot
 
 sudo su && crontab -l > mycron && \

@@ -3,7 +3,8 @@ import logging
 
 
 def main():
-    logging.basicConfig(filename='example.log', level=logging.DEBUG)
+    # logging.basicConfig(filename='example.log', level=logging.DEBUG)
+    logging.basicConfig(level=logging.INFO)  # info - debug - warning
 
     if len(sys.argv) > 1:
 
@@ -21,7 +22,7 @@ def main():
             CCP.Computer.calibration_server_computer.main()
 
         else:
-            print("error arg")
+            logging.warning("error arg")
 
     #car
     else:
@@ -38,12 +39,11 @@ def main():
 
 
         main_controller.join()
-        print("main_controller thread: terminated")
+        logging.info("main_controller thread: terminated")
         car_controller.join()
-        print("car_controller thread: terminated")
+        logging.info("car_controller thread: terminated")
 
 
 
 if __name__ == '__main__':
     main()
-    # TODO: replace prints by loggings

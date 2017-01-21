@@ -1,3 +1,5 @@
+import logging
+
 from Main_Controller.global_queues import *
 from CCP.packets import message_type
 
@@ -23,7 +25,7 @@ class Master_controller:
         elif self.type == "connection":
             self.connection_manager()
         else:
-            print("error routing in Master_controller")
+            logging.warning("Error routing in Master_controller")
 
     def alert_manager(self):
         pass
