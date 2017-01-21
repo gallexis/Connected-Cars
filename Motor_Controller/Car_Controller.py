@@ -25,10 +25,10 @@ class Car_Controller(threading.Thread):
             'stop': Motor_Controller.motor.stop,  # Stop
             'move_forward': Motor_Controller.motor.forward,
             'move_backward': Motor_Controller.motor.backward,
-            #'turn_left': Motor_Controller.car_dir.turn_left,
-            #'turn_right': Motor_Controller.car_dir.turn_right,
-            'turn_left': self.fine_turn_left,
-            'turn_right': self.fine_turn_right,
+            'turn_left': Motor_Controller.car_dir.turn_left,
+            'turn_right': Motor_Controller.car_dir.turn_right,
+            # 'turn_left': self.fine_turn_left,
+            # 'turn_right': self.fine_turn_right,
             'forward_speed': lambda args: self.forward_speed(args),
             'backward_speed': lambda args: self.backward_speed(args),
             'set_angle': lambda args: self.setAngle(args),
@@ -48,15 +48,17 @@ class Car_Controller(threading.Thread):
             order, args = TO_MOTORS_Q_get()
             try:
                 if args is None:
+                    logging.debug("Motor:: " + str(order))
                     self.ctrl_cmd[order]()
                 else:
+                    logging.debug("Motor:: " + str(order) + ", args:: ", str(args))
                     self.ctrl_cmd[order](args)
             except Exception as e:
                 logging.warning("Error motor order: " + e.__str__())
 
     def setSpeed(self, speed):
         spd = int(speed)
-        logging.debug('spd(int) =', spd)
+        logging.debug('spd(int) =' + str(spd))
         if spd < 24:
             spd = 24
         Motor_Controller.motor.setSpeed(spd)

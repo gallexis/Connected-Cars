@@ -4,7 +4,7 @@ import logging
 
 def main():
     # logging.basicConfig(filename='example.log', level=logging.DEBUG)
-    logging.basicConfig(level=logging.INFO)  # info - debug - warning
+    logging.basicConfig(level=logging.DEBUG)  # info - debug - warning
 
     if len(sys.argv) > 1:
 
