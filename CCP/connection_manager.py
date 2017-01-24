@@ -1,4 +1,6 @@
+import os, sys
 import socket
+import threading
 import time
 import _thread
 import struct
@@ -10,6 +12,59 @@ from Main_Controller.global_queues import *
 
 # IP of all masters: 192.168.1.1
 # IP of all slaves:  192.168.1.2
+
+##########
+# Camera
+##########
+class Images_Recognition(threading.Thread):
+    def __init__(self):
+        threading.Thread.__init__(self)
+
+        self.orders_available = [
+            'stop',
+            'move_forward',
+            'move_backward',
+            'turn_left',
+            'turn_right',
+        ]
+        self.sock_addr = '/tmp/connected_cars.sock'
+
+        # Make sure the socket does not already exist
+        try:
+            os.unlink(self.sock_addr)
+        except:
+            if os.path.exists(self.sock_addr):
+                os.remove(self.sock_addr)
+                logging.warning("removed " + self.sock_addr)
+
+        self.sock = self.wait_for_camera()
+        if self.sock is None:
+            logging.warning("Error connection to server")
+            sys.exit(1)
+
+    def wait_for_camera(self):
+        sock = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
+        sock.bind(self.sock_addr)
+
+        logging.info('Waiting for connection to camera module')
+
+        try:
+            connection, client_address = sock.accept()
+            return connection
+        except Exception as e:
+            logging.warning("Error waiting for camera: " + e.__str__())
+            return None
+
+    def run(self):
+        while True:
+            order = self.sock.recv(20)
+            if order in self.orders_available:
+                # the orders from the camera are considered as the same as the masters' orders
+                CONTROLLER_IN_Q.put({"from": "master", "message_type": "driving", "message_order": order, "args": None})
+            else:
+                logging.warning("order not in orders_available: ")
+                logging.warning(order)
+
 
 ##########
 # MASTER

@@ -35,7 +35,7 @@ def main():
         main_controller = Main_Controller.Main_Controller().start()
         master_connection = connection_manager.Master_connection()
         slave_connection = connection_manager.Slave_connection()
-        # images_recognition = Images_Recognition.Images_Recognition().start()
+        images_recognition = connection_manager.Images_Recognition().start()
 
 
         main_controller.join()

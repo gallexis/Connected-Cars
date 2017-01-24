@@ -58,10 +58,12 @@ while True:
             
 
     if compteur_NG > 50 :
-        print 'Tourner à droite'
+        print
+        'Tourner ? droite'
 
     if compteur_ND > 50 :
-        print 'Tourner à Gauche'
+        print
+        'Tourner ? Gauche'
 
     if compteur_NG <= 50 & compteur_ND <= 50 :
         print 'Forward'

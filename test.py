@@ -1,5 +1,2 @@
-import logging
-
-logging.basicConfig(level=logging.DEBUG)  # info - debug - warning
-
-print(str(("yoo", 3)))
+if 1 is not 2:
+    print(str(None))
