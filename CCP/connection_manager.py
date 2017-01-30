@@ -163,6 +163,7 @@ class Slave_connection:
 
         while self.slave_alive:
             data = TO_SLAVE_Q_get()
+            print("to send", data)
             to_send(self.sock, data)
 
     def receive_from_slave(self):
