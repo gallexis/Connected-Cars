@@ -93,13 +93,14 @@ class Master_connection:
             try:
                 logging.info("Connection to master...")
                 sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-                sock.bind(("192.168.43.3", 0))
+                #sock.bind(("192.168.43.3", 0))
                 sock.connect(("192.168.43.202", 3000))
                 logging.info("Connected to master")
                 break
-            except:
+            except Exception as e :
                 connected -= 1
                 logging.warning("Error master connection")
+                logging.warning(e.__str__())
                 time.sleep(4)
 
         return sock
@@ -141,7 +142,7 @@ class Slave_connection:
         tries = 5
 
         sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        #sock.bind(('', 3000))
+        sock.bind(('', 3000))
         sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
         sock.listen(5)
 
