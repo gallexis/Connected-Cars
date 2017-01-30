@@ -1,7 +1,7 @@
 import logging
 
 from Main_Controller.global_queues import *
-from CCP.packets import message_type
+from CCP.packets import create_message
 
 
 class Master_controller:
@@ -32,7 +32,7 @@ class Master_controller:
 
     def driving_manager(self):
         # send the same driving order to the slave
-        TO_SLAVE_Q.put(self.data)
+        TO_SLAVE_Q.put(create_message(self.type,self.order,self.args))
 
         # send the order "move_forward" to the motors
         TO_MOTORS_Q.put((self.order, self.args))
