@@ -19,8 +19,6 @@ class Car_Controller(threading.Thread):
         Motor_Controller.video_dir.home_x_y()
         Motor_Controller.car_dir.home()
 
-        self.offset = 0
-        self.turn_pas=3
         self.ctrl_cmd = {
             'stop': Motor_Controller.motor.stop,
             'move_forward': Motor_Controller.motor.forward,
@@ -65,15 +63,6 @@ class Car_Controller(threading.Thread):
             spd = 24
         Motor_Controller.motor.setSpeed(spd)
 
-    def fine_turn_left(self):
-        self.offset -= int(self.turn_pas)
-        Motor_Controller.car_dir.turn_left()
-
-    def fine_turn_right(self):
-        self.offset += int(self.turn_pas)
-        Motor_Controller.car_dir.turn_right()
-
-
     def setAngle(self, angle):
         try:
             angle = int(angle)
@@ -87,7 +76,6 @@ class Car_Controller(threading.Thread):
             Motor_Controller.motor.forwardWithSpeed(spd)
         except Exception as e:
             logging.warning('Error forward_speed: ' + e.__str__())
-
 
     def backward_speed(self, speed):
         try:
