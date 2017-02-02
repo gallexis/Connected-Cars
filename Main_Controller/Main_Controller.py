@@ -3,7 +3,7 @@ import threading
 import logging
 
 from Main_Controller.global_queues import *
-from Main_Controller.sub_controllers import Master_controller, Slave_controller  # ,Camera_controller
+from Main_Controller.sub_controllers import Master_controller, Slave_controller, Camera_controller
 
 
 class Main_Controller(threading.Thread):
@@ -12,7 +12,7 @@ class Main_Controller(threading.Thread):
 
         self.master_controller = Master_controller.Master_controller()
         self.slave_controller = Slave_controller.Slave_controller()
-        # self.camera_controller = Camera_controller.Camera_controller()
+        self.camera_controller = Camera_controller.Camera_controller()
 
     def run(self):
         CONTROLLER_IN_Q_get = CONTROLLER_IN_Q.get
@@ -29,7 +29,7 @@ class Main_Controller(threading.Thread):
         elif message_from == "slave":
             self.slave_controller.handle_message(data)
         elif message_from == "camera":
-            #self.camera_controller.handle_message(data)
-            pass
+            self.camera_controller.handle_message(data)
+
         else:
             logging.warning("Unknown destination")

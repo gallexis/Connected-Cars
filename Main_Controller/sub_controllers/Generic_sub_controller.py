@@ -1,9 +1,5 @@
 import logging
-
-from Main_Controller.global_queues import *
-from CCP.packets import message_type
 from abc import ABC, abstractmethod
-
 
 class Generic_sub_controller(ABC):
     @abstractmethod
@@ -32,12 +28,12 @@ class Generic_sub_controller(ABC):
 
     @abstractmethod
     def alert_manager(self):
-        raise NotImplementedError('subclasse must be implemented')
+        raise NotImplementedError('subclass must be implemented')
 
     @abstractmethod
     def driving_manager(self):
-        raise NotImplementedError('subclasse must be implemented')
+        raise NotImplementedError('subclass must be implemented')
 
     @abstractmethod
     def connection_manager(self):
-        raise NotImplementedError('subclasse must be implemented')
+        raise NotImplementedError('subclass must be implemented')
