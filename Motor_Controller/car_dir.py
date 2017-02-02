@@ -9,7 +9,7 @@ def Map(x, in_min, in_max, out_min, out_max):
 
 
 def setup():
-    global leftPWM, rightPWM, homePWM, pwm
+    global leftPWM, rightPWM, homePWM, pwm, offset
     ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
 
     leftPWM = 400
@@ -61,14 +61,14 @@ def turn_right():
 # ==========================================================================================
 def fine_turn_left():
     global leftPWM
-    pwm.set_value(0, 0, 450 - 1)
+    pwm.set_value(0, 0, 450 - offset)
 
 
 # ==========================================================================================
 # Make the car turn right.
 # ==========================================================================================
 def fine_turn_right():
-    pwm.set_value(0, 0, 450 + 1)
+    pwm.set_value(0, 0, 450 + offset)
 
 
 # ==========================================================================================

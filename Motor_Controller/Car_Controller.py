@@ -65,11 +65,11 @@ class Car_Controller(threading.Thread):
 
     def fine_turn_left(self):
         self.offset -= int(self.turn_pas)
-        Motor_Controller.car_dir.calibrate(int(self.offset))
+        Motor_Controller.car_dir.turn_left()
 
     def fine_turn_right(self):
         self.offset += int(self.turn_pas)
-        Motor_Controller.car_dir.calibrate(int(self.offset))
+        Motor_Controller.car_dir.turn_right()
 
 
     def setAngle(self, angle):

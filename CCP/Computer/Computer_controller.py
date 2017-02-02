@@ -96,8 +96,8 @@ class Computer_controller:
 
         self.Btn0.bind('<ButtonRelease-1>', self.stop_fun)  # When button0 is released, call the function stop_fun().
         self.Btn1.bind('<ButtonRelease-1>', self.stop_fun)
-        self.Btn2.bind('<ButtonRelease-1>', self.stop_fun)
-        self.Btn3.bind('<ButtonRelease-1>', self.stop_fun)
+        self.Btn2.bind('<ButtonRelease-1>', self.home_fun)
+        self.Btn3.bind('<ButtonRelease-1>', self.home_fun)
         self.Btn4.bind('<ButtonRelease-1>', self.quit_fun)
         self.Btn5.bind('<ButtonRelease-1>', self.home_fun)
 

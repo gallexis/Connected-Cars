@@ -93,13 +93,14 @@ class Master_connection:
             try:
                 logging.info("Connection to master...")
                 sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-                sock.bind(("192.168.43.3", 0))
+                #sock.bind(("192.168.43.3", 0))
                 sock.connect(("192.168.43.202", 3000))
                 logging.info("Connected to master")
                 break
-            except:
+            except Exception as e :
                 connected -= 1
                 logging.warning("Error master connection")
+                logging.warning(e.__str__())
                 time.sleep(4)
 
         return sock
@@ -162,6 +163,7 @@ class Slave_connection:
 
         while self.slave_alive:
             data = TO_SLAVE_Q_get()
+            print("to send", data)
             to_send(self.sock, data)
 
     def receive_from_slave(self):
