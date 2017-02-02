@@ -22,36 +22,38 @@ class Car_Controller(threading.Thread):
         self.offset = 0
         self.turn_pas=3
         self.ctrl_cmd = {
-            'stop': Motor_Controller.motor.stop,  # Stop
+            'stop': Motor_Controller.motor.stop,
             'move_forward': Motor_Controller.motor.forward,
             'move_backward': Motor_Controller.motor.backward,
             'turn_left': Motor_Controller.car_dir.turn_left,
             'turn_right': Motor_Controller.car_dir.turn_right,
-            # 'turn_left': self.fine_turn_left,
-            # 'turn_right': self.fine_turn_right,
             'forward_speed': lambda args: self.forward_speed(args),
             'backward_speed': lambda args: self.backward_speed(args),
             'set_angle': lambda args: self.setAngle(args),
-            'x+': Motor_Controller.video_dir.move_increase_x,  # X+
-            'x-': Motor_Controller.video_dir.move_decrease_x,  # X-
-            'y+': Motor_Controller.video_dir.move_increase_y,  # Y+
-            'y-': Motor_Controller.video_dir.move_decrease_y,  # Y-
-            'xy_home': Motor_Controller.video_dir.home_x_y,  # home X_Y
+            'x+': Motor_Controller.video_dir.move_increase_x,
+            'x-': Motor_Controller.video_dir.move_decrease_x,
+            'y+': Motor_Controller.video_dir.move_increase_y,
+            'y-': Motor_Controller.video_dir.move_decrease_y,
+            'xy_home': Motor_Controller.video_dir.home_x_y,
             'set_speed': lambda args: self.setSpeed(args),
             'home': Motor_Controller.car_dir.home,
             'get_cpu_value': self.get_cpu_value,
         }
 
     def run(self):
-        TO_MOTORS_Q_get = TO_MOTORS_Q.get
+        TO_MOTORS_Q_get = TO_MOTORS_Q.get  # this trick is used to optimize the rapidity of python (https://wiki.python.org/moin/PythonSpeed/PerformanceTips#Avoiding_dots...)
         while True:
             order, args = TO_MOTORS_Q_get()
             try:
                 if args is None:
-                    logging.debug("Motor:: " + str(order))
+                    logging.debug("Motor:: ")
+                    logging.debug(order)
                     self.ctrl_cmd[order]()
                 else:
-                    logging.debug("Motor:: " + str(order) + ", args:: ", str(args))
+                    logging.debug("Motor:: ")
+                    logging.debug(order)
+                    logging.debug("Args:: ")
+                    logging.debug(args)
                     self.ctrl_cmd[order](args)
             except Exception as e:
                 logging.warning("Error motor order: " + e.__str__())
