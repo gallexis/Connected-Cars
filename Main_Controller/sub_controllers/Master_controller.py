@@ -1,31 +1,12 @@
 import logging
 
 from Main_Controller.global_queues import *
-from CCP.packets import message_type
+from Main_Controller.sub_controllers.Generic_sub_controller import *
 
 
-class Master_controller:
+class Master_controller(Generic_sub_controller):
     def __init__(self):
-        pass
-
-    def handle_message(self, data):
-        self.data = data
-        self.type = data["message_type"]
-        self.order = data["message_order"]
-        self.args = data["args"]
-
-        self.routing()
-
-    def routing(self):
-
-        if self.type == "alert":
-            self.alert_manager()
-        elif self.type == "driving":
-            self.driving_manager()
-        elif self.type == "connection":
-            self.connection_manager()
-        else:
-            logging.warning("Error routing in Master_controller")
+        super().__init__()
 
     def alert_manager(self):
         pass
@@ -37,7 +18,5 @@ class Master_controller:
         # send the order "move_forward" to the motors
         TO_MOTORS_Q.put((self.order, self.args))
 
-
     def connection_manager(self):
         pass
-
