@@ -6,17 +6,13 @@ import os,sys
 from socket import *
 from time import ctime
 
-IP = '192.168.43.202'  # Server(Raspberry Pi) IP address
+IP = ""  # Server(Raspberry Pi) IP address
 PORT = 21567
 BUFSIZ = 1024
 
 tcpSerSock = socket(AF_INET, SOCK_STREAM)
 
-try:
-    tcpSerSock.connect((IP, PORT))
-except Exception as e:
-    print(" Error connection to server: ", e)
-    sys.exit(1)
+
 
 
 # connections are full, others will be rejected.
@@ -189,7 +185,15 @@ def loop():
                 print('Command Error! Cannot recognize command: ', data)
 
 
-def main():
+def main(master_address):
+
+    IP = master_address
+    try:
+        tcpSerSock.connect((IP, PORT))
+    except Exception as e:
+        print(" Error connection to server: ", e)
+        sys.exit(1)
+
     try:
         setup()
         loop()

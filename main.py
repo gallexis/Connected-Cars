@@ -9,41 +9,47 @@ def main():
 
     if len(sys.argv) > 2:
 
+
+        #calibration car
+        if sys.argv[1] == "cali-car":
+            import Motor_Controller.calibration_client_car
+            Motor_Controller.calibration_client_car.main()
+
+        #car
+        elif sys.argv[1] == "car":
+            master_address = sys.argv[2]
+            from Motor_Controller import Car_Controller
+            from Images_Recognition import void
+            from CCP import connection_manager
+            from Main_Controller import Main_Controller
+
+            car_controller = Car_Controller.Car_Controller().start()
+            main_controller = Main_Controller.Main_Controller().start()
+            master_connection = connection_manager.Master_connection(master_address)
+            slave_connection = connection_manager.Slave_connection()
+            images_recognition = connection_manager.Images_Recognition().start()
+
+            main_controller.join()
+            logging.info("main_controller thread: terminated")
+            car_controller.join()
+            logging.info("car_controller thread: terminated")
+
+        else:
+            logging.warning("error arg")
+
+
+
+    elif len(sys.argv) == 2 :
+
         # computer
         if sys.argv[1] == "pc":
             from CCP.Computer import Computer_controller
             Computer_controller.Computer_controller()
 
-        elif sys.argv[1] == "cali-car":
-            import Motor_Controller.calibration_client_car
-            Motor_Controller.calibration_client_car.main()
-
+        #calibration pc
         elif sys.argv[1] == "cali-pc":
             import CCP.Computer.calibration_server_computer
             CCP.Computer.calibration_server_computer.main()
-
-        else:
-            logging.warning("error arg")
-
-    #car
-    else:
-        master_address = sys.argv[1]
-        from Motor_Controller import Car_Controller
-        from Images_Recognition import void
-        from CCP import connection_manager
-        from Main_Controller import Main_Controller
-
-        car_controller = Car_Controller.Car_Controller().start()
-        main_controller = Main_Controller.Main_Controller().start()
-        master_connection = connection_manager.Master_connection(master_address)
-        slave_connection = connection_manager.Slave_connection()
-        images_recognition = connection_manager.Images_Recognition().start()
-
-
-        main_controller.join()
-        logging.info("main_controller thread: terminated")
-        car_controller.join()
-        logging.info("car_controller thread: terminated")
 
 
 
