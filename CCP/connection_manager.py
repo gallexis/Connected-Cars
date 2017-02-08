@@ -29,6 +29,7 @@ class Images_Recognition(threading.Thread):
         ]
         self.sock_addr = '/tmp/connected_cars.sock'
 
+
         # Make sure the socket does not already exist
         try:
             os.unlink(self.sock_addr)
@@ -70,14 +71,13 @@ class Images_Recognition(threading.Thread):
 # MASTER
 ##########
 class Master_connection:
-    def __init__(self):
-        self.sock = self.connect_to_master()
+    def __init__(self,master_address):
+        self.sock = self.connect_to_master(master_address)
         if self.sock == None:
             logging.warning("sock == none, cannot connect to master.")
             return
 
         self.master_alive = True
-
         try:
             _thread.start_new_thread(self.receive_from_master, ())
             _thread.start_new_thread(self.send_to_master, ())
@@ -85,7 +85,7 @@ class Master_connection:
             logging.warning("Error: unable to start Master_connection's thread: " + e.__str__())
 
 
-    def connect_to_master(self):
+    def connect_to_master(self,address):
         connected = 5
         sock = None
 
@@ -94,7 +94,7 @@ class Master_connection:
                 logging.info("Connection to master...")
                 sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
                 #sock.bind(("192.168.43.3", 0))
-                sock.connect(("192.168.43.202", 3000))
+                sock.connect((address, 3000))
                 logging.info("Connected to master")
                 break
             except Exception as e :

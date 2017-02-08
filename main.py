@@ -5,8 +5,9 @@ import logging
 def main():
     # logging.basicConfig(filename='example.log', level=logging.DEBUG)
     logging.basicConfig(level=logging.DEBUG)  # info - debug - warning
+    master_address=""
 
-    if len(sys.argv) > 1:
+    if len(sys.argv) > 2:
 
         # computer
         if sys.argv[1] == "pc":
@@ -26,6 +27,7 @@ def main():
 
     #car
     else:
+        master_address = sys.argv[1]
         from Motor_Controller import Car_Controller
         from Images_Recognition import void
         from CCP import connection_manager
@@ -33,7 +35,7 @@ def main():
 
         car_controller = Car_Controller.Car_Controller().start()
         main_controller = Main_Controller.Main_Controller().start()
-        master_connection = connection_manager.Master_connection()
+        master_connection = connection_manager.Master_connection(master_address)
         slave_connection = connection_manager.Slave_connection()
         images_recognition = connection_manager.Images_Recognition().start()
 
