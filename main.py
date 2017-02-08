@@ -13,7 +13,7 @@ def main():
         #calibration car
         if sys.argv[1] == "cali-car":
             import Motor_Controller.calibration_client_car
-            Motor_Controller.calibration_client_car.main()
+            Motor_Controller.calibration_client_car.main(sys.argv[2])
 
         #car
         elif sys.argv[1] == "car":
